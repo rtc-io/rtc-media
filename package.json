@@ -1,0 +1,18 @@
+{
+  "name": "rtc-media",
+  "description": "A simple getUserMedia wrapper",
+  "author": "Damon Oehlman <damon.oehlman@nicta.com.au>",
+  "tags": [
+    "webrtc",
+    "getusermedia"
+  ],
+  "version": "0.0.0",
+  "dependencies": {
+    "cog": "0.1.x",
+    "crel": "1.0.x",
+    "feature": "0.0.x"
+  },
+  "devDependencies": {
+  },
+  "contributors": []
+}
