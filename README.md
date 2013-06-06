@@ -7,7 +7,7 @@ Simple [getUserMedia](http://dev.w3.org/2011/webrtc/editor/getusermedia.html) cr
 Add a script tag to your html to include the media library:
 
 ```html
-<script src="https://js.rtc.io/media-0.0.0.js"></script>
+<script src="https://code.rtc.io/media-0.0.0.js"></script>
 ```
 
 Add some more script goodness to make cool stuff happen:
@@ -26,8 +26,8 @@ If you are keen to use the `rtc-media` library along with other modules in the r
 
 First, create a new simple HTML page for this example:
 
-<!-- @import demo/index.html -->
-```html
+```
+:::html demo/index.html
 <!DOCTYPE html>
 <head>
 <title>Media Capture Demo</title>
