@@ -26,6 +26,7 @@ If you are keen to use the `rtc-media` library along with other modules in the r
 
 First, create a new simple HTML page for this example:
 
+<!-- @import demo/index.html -->
 ```html
 <!DOCTYPE html>
 <head>
@@ -52,6 +53,7 @@ html, body {
 
 And also a JS file that will do most of the work:
 
+<!-- @import demo/index.js -->
 ```js
 var media = require('../'),
 	qsa = require('cog/qsa'),
