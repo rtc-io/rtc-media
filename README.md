@@ -53,8 +53,8 @@ html, body {
 
 And also a JS file that will do most of the work:
 
-<!-- @import demo/index.js -->
-```js
+```
+:::js demo/index.js
 var media = require('../'),
 	qsa = require('cog/qsa'),
     video = media();
