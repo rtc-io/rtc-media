@@ -11,6 +11,9 @@ navigator.getUserMedia = detect.call(navigator, 'getUserMedia');
 // patch window url
 window.URL = window.URL || detect('URL');
 
+// patch media stream
+window.MediaStream = detect('MediaStream');
+
 /**
 # Media
 */
@@ -22,12 +25,22 @@ function Media(opts) {
     // inherited
     EventEmitter.call(this);
 
+    // if the opts is a media stream instance, then handle that appropriately
+    if (opts instanceof MediaStream) {
+        opts = {
+            stream: opts,
+            start: false,
+            muted: false
+        };
+    }
+
     // ensure we have opts
     opts = extend({}, {
         start: true,
+        muted: true,
         constraints: {
             video: true,
-            audio: true
+            audio: false
         }
     }, opts);
 
@@ -38,7 +51,7 @@ function Media(opts) {
     this.name = opts.name;
 
     // initialise the stream to null
-    this.stream = null;
+    this.stream = opts.stream || null;
 
     // create a bindings array so we have a rough idea of where we have been attached to
     // TODO: revisit whether this is the best way to manage this
@@ -91,6 +104,9 @@ constraints that were used when the media object was created.
 Media.prototype.start = function(constraints, callback) {
     var media = this,
         handleEnd = this.emit.bind(this, 'stop');
+
+    // if we already have a stream, then abort
+    if (this.stream) return;
 
     // if no constraints have been provided, but we have a callback, deal with it
     if (typeof constraints == 'function') {
@@ -177,8 +193,8 @@ Media.prototype._bindStream = function(stream, opts, element) {
         element = crel('video', {
             width: '100%',
             height: '100%',
-            muted: true,
-            preserveAspectRatio: opts.preserveAspectRatio
+            muted: typeof opts.muted == 'undefined' || true,
+            preserveAspectRatio: typeof opts.preserveAspectRatio == 'undefined' || true
         });
 
         // add to the parent
