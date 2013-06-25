@@ -12,7 +12,6 @@
     "crel": "1.0.x",
     "feature": "0.0.x"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "contributors": []
 }
