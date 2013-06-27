@@ -92,7 +92,7 @@ Media.prototype.render = function(targets, opts, stream) {
     }
 
     // bind the stream to all the identified targets
-    targets.filter(Boolean).forEach(this._bindStream.bind(this, stream, opts));
+    return targets.filter(Boolean).map(this._bindStream.bind(this, stream, opts));
 };
 
 /**
@@ -219,6 +219,8 @@ Media.prototype._bindStream = function(stream, opts, element) {
         el: element,
         opts: opts
     });
+
+    return element;
 };
 
 /**
