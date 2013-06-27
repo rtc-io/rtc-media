@@ -191,8 +191,6 @@ Media.prototype._bindStream = function(stream, opts, element) {
         // create a new video element
         // TODO: create an appropriate element based on the types of tracks available
         element = crel('video', {
-            width: '100%',
-            height: '100%',
             muted: typeof opts.muted == 'undefined' || true,
             preserveAspectRatio: typeof opts.preserveAspectRatio == 'undefined' || true
         });
