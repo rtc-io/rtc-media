@@ -39,8 +39,11 @@ function Media(opts) {
         start: true,
         muted: true,
         constraints: {
-            video: true,
-            audio: false
+            video: {
+                mandatory: {},
+                optional: []
+            },
+            audio: true
         }
     }, opts);
 
@@ -52,6 +55,9 @@ function Media(opts) {
 
     // initialise the stream to null
     this.stream = opts.stream || null;
+
+    // initialise the muted state
+    this.muted = typeof opts.muted == 'undefined' || opts.muted;
 
     // create a bindings array so we have a rough idea of where we have been attached to
     // TODO: revisit whether this is the best way to manage this
@@ -191,9 +197,13 @@ Media.prototype._bindStream = function(stream, opts, element) {
         // create a new video element
         // TODO: create an appropriate element based on the types of tracks available
         element = crel('video', {
-            muted: typeof opts.muted == 'undefined' || true,
             preserveAspectRatio: typeof opts.preserveAspectRatio == 'undefined' || true
         });
+
+        // if muted, inject the muted attribute
+        if (this.muted) {
+            element.setAttribute('muted');
+        }
 
         // add to the parent
         parent.appendChild(element);
