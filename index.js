@@ -67,19 +67,6 @@ window.addEventListener('load', function() {
     });
 });
 ``` 
-
-## Debugging Tips
-
-Chrome and Chromium can both be started with the following flag:
-
-```
---use-fake-device-for-media-stream
-```
-
-This uses a fake stream for the getUserMedia() call rather than attempting
-to capture the actual camera.  This is useful when doing automated testing
-and also if you want to test connectivity between two browser instances and
-want to distinguish between the two local videos.
 **/
 
 var crel = require('crel');
@@ -373,3 +360,18 @@ Media.prototype._handleFail = function() {
   // TODO: make this more friendly
   this.emit('error', new Error('Unable to capture requested media'));
 };
+
+/**
+## Debugging Tips
+
+Chrome and Chromium can both be started with the following flag:
+
+```
+--use-fake-device-for-media-stream
+```
+
+This uses a fake stream for the getUserMedia() call rather than attempting
+to capture the actual camera.  This is useful when doing automated testing
+and also if you want to test connectivity between two browser instances and
+want to distinguish between the two local videos.
+**/
