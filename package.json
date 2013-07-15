@@ -12,6 +12,9 @@
     "crel": "1.0.x",
     "feature": "0.0.x"
   },
+  "scripts": {
+    "gendocs": "emu < index.js > README.md"
+  },
   "devDependencies": {},
   "contributors": []
 }
