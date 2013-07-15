@@ -25,8 +25,7 @@ This quick start assumes familiarity with that process.
 
 First, create a new simple HTML page for this example:
 
-```
-:::html demo/index.html
+```html
 <!DOCTYPE html>
 <head>
 <title>Media Capture Demo</title>
@@ -52,9 +51,8 @@ html, body {
 
 And also a JS file that will do most of the work:
 
-```
-:::js demo/index.js
-var media = require('../'),
+```js
+var media = require('rtc-media'),
     qsa = require('cog/qsa'),
     video = media();
 
