@@ -13,8 +13,11 @@
     "feature": "0.0.x"
   },
   "scripts": {
+    "test": "$(npm bin)/jshint *.js",
     "gendocs": "emu < index.js > README.md"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jshint": "~2.1.4"
+  },
   "contributors": []
 }
