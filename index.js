@@ -52,20 +52,9 @@ html, body {
 And also a JS file that will do most of the work:
 
 ```js
-var media = require('rtc-media'),
-    qsa = require('cog/qsa'),
-    video = media();
+var media = require('rtc-media');
 
-// create media and attach to the specified element
-video.render('.video');
-
-window.addEventListener('load', function() {
-    qsa('button').forEach(function(button){ 
-        button.addEventListener('click', function() {
-            video[button.dataset.action].call(video);
-        });
-    });
-});
+media().render('.video');
 ``` 
 **/
 

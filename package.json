@@ -17,7 +17,8 @@
     "gendocs": "emu < index.js > README.md"
   },
   "devDependencies": {
-    "jshint": "~2.1.4"
+    "jshint": "~2.1.4",
+    "bde": "~0.2.0"
   },
   "contributors": []
 }
