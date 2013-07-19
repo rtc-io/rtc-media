@@ -139,16 +139,15 @@ module.exports = Media;
 Attach the media stream to the target element
 **/
 Media.prototype.render = function(targets, opts, stream) {
+  var elements;
+
   // if the stream is not provided, then use the current stream
   stream = stream || this.stream;
 
   // ensure we have opts
   opts = opts || {};
 
-  // if no stream was specified, wait for the stream to initialize
-  if (! stream) {
-    return this.once('start', this.render.bind(this, targets, opts));
-  }
+  // TODO: free existing elements
 
   // use qsa to get the targets
   if (typeof targets == 'string' || (targets instanceof String)) {
@@ -159,10 +158,15 @@ Media.prototype.render = function(targets, opts, stream) {
     targets = [].concat(targets || []);
   }
 
+  // if no stream was specified, wait for the stream to initialize
+  if (! stream) {
+    this.once('start', this._bindStream.bind(this));
+  }
+
   // bind the stream to all the identified targets
   return targets
             .filter(Boolean)
-            .map(this._bindStream.bind(this, stream, opts));
+            .map(this._prepareElements.bind(this, opts));
 };
 
 /**
@@ -239,9 +243,9 @@ Media.prototype.stop = function(opts) {
 };
 
 /**
-### _bindStream(element, stream)
+### _prepareElements()
 **/
-Media.prototype._bindStream = function(stream, opts, element) {
+Media.prototype._prepareElements = function(opts, element) {
   var parent;
   var validElement = (element instanceof HTMLVideoElement) ||
         (element instanceof HTMLAudioElement);
@@ -267,19 +271,6 @@ Media.prototype._bindStream = function(stream, opts, element) {
     parent.appendChild(element);
   }
 
-  // check for mozSrcObject
-  if (typeof element.mozSrcObject != 'undefined') {
-    element.mozSrcObject = stream;
-  }
-  else {
-    element.src = this._createObjectURL(stream) || stream;
-  }
-
-  // attempt to play the video
-  if (typeof element.play == 'function') {
-    element.play();
-  }
-
   // flag the element as bound
   this._bindings.push({
     el: element,
@@ -287,6 +278,29 @@ Media.prototype._bindStream = function(stream, opts, element) {
   });
 
   return element;
+};
+
+/**
+### _bindStream(element, stream)
+**/
+Media.prototype._bindStream = function(stream) {
+  var media = this;
+
+  // iterate through the bindings and bind the stream
+  this._bindings.map(function(binding) {
+    // check for mozSrcObject
+    if (typeof binding.el.mozSrcObject != 'undefined') {
+      binding.el.mozSrcObject = stream;
+    }
+    else {
+      binding.el.src = media._createObjectURL(stream) || stream;
+    }
+
+    // attempt to play the video
+    if (typeof binding.el.play == 'function') {
+      binding.el.play();
+    }
+  });
 };
 
 /**
