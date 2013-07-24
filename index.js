@@ -133,9 +133,29 @@ util.inherits(Media, EventEmitter);
 module.exports = Media;
 
 /**
-  ### attach(target)
+  ### render(targets, opts?, stream?)
 
-  Attach the media stream to the target element
+  Render this media element to elements matching the specified selector or
+  specific targets.  If the targets are regular DOM elements rather than 
+  `video` or `audio` elements, then new `video` or `audio` elements are 
+  created to accept the media stream once started.
+
+  In all cases, an array of video/audio elements (either created or 
+  existing) from the render call and can be manipulated as required by 
+  your application.  It is important to note, however, that the elements
+  may not yet have streams associated with them due to the async nature
+  of the underlying `getUserMedia` API (requesting permission, etc).
+
+  A simple example of requesting default media capture and rendering to the 
+  document body is shown below:
+
+  ```js
+  var media = require('rtc-media'); // or require('rtc/media')
+
+  // start the stream and render to the document body once active
+  media().render(document.body);
+  ```
+  
 **/
 Media.prototype.render = function(targets, opts, stream) {
   // if the stream is not provided, then use the current stream

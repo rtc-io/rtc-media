@@ -19,20 +19,19 @@ First, create a new simple HTML page for this example:
 <title>Media Capture Demo</title>
 <style>
 html, body {
-width: 100%;
-height: 100%;
-margin: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
 }
 
 .video {
-width: 640px;
-height: 480px;
+    width: 640px;
+    height: 480px;
 }
 </style>
 </head>
 <body>
 <div class="video"></div>
-<script src="bundle.js"></script>
 </body>
 </html>
 ```
@@ -47,9 +46,28 @@ media().render('.video');
 
 ## Media prototype reference
 
-### attach(target)
+### render(targets, opts?, stream?)
 
-Attach the media stream to the target element
+Render this media element to elements matching the specified selector or
+specific targets.  If the targets are regular DOM elements rather than 
+`video` or `audio` elements, then new `video` or `audio` elements are 
+created to accept the media stream once started.
+
+In all cases, an array of video/audio elements (either created or 
+existing) from the render call and can be manipulated as required by 
+your application.  It is important to note, however, that the elements
+may not yet have streams associated with them due to the async nature
+of the underlying `getUserMedia` API (requesting permission, etc).
+
+A simple example of requesting default media capture and rendering to the 
+document body is shown below:
+
+```js
+var media = require('rtc-media'); // or require('rtc/media')
+
+// start the stream and render to the document body once active
+media().render(document.body);
+```
 
 ### start(constraints, callback)
 
@@ -61,16 +79,20 @@ created.
 
 Stop the media stream
 
+### _prepareElements()
+
 ### _bindStream(element, stream)
 
 ### _unbind()
 
-Gracefully detach elements that are using the stream from the current stream
+Gracefully detach elements that are using the stream from the 
+current stream.
 
 ### _createObjectUrl(stream)
 
-This method is used to create an object url that can be attached to a video or 
-audio element.  Object urls are cached to ensure only one is created per stream.
+This method is used to create an object url that can be attached to a video
+or audio element.  Object urls are cached to ensure only one is created
+per stream.
 
 ### _handleSuccess(stream)
 
