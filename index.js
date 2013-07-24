@@ -138,8 +138,6 @@ module.exports = Media;
   Attach the media stream to the target element
 **/
 Media.prototype.render = function(targets, opts, stream) {
-  var elements;
-
   // if the stream is not provided, then use the current stream
   stream = stream || this.stream;
 
