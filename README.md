@@ -3,46 +3,36 @@
 Simple [getUserMedia](http://dev.w3.org/2011/webrtc/editor/getusermedia.html)
 cross-browser wrappers.  Part of the [rtc.io](http://rtc.io/) suite.
 
-## Quick Start
+Capturing media on your machine is as simple as:
 
-If you are keen to use the `rtc-media` library along with other modules in 
-the rtc.io suite, then you might want to consider using them in the 
-[recommended development toolchain](http://docs.rtc.io/development-toolchain).
-
-This quick start assumes familiarity with that process.
-
-First, create a new simple HTML page for this example:
-
-```html
-<!DOCTYPE html>
-<head>
-<title>Media Capture Demo</title>
-<style>
-html, body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-}
-
-.video {
-    width: 640px;
-    height: 480px;
-}
-</style>
-</head>
-<body>
-<div class="video"></div>
-</body>
-</html>
+```js
+require('rtc-media')();
 ```
 
-And also a JS file that will do most of the work:
+While this will in fact start the user media capture process, it won't 
+do anything with it.  Lets take a look at a more realistic example:
 
 ```js
 var media = require('rtc-media');
 
-media().render('.video');
+media().render(document.body);
 ```
+
+In the code above, we are creating a new instance of our userMedia wrapper
+using the `media()` call and then telling it to render to the
+`document.body` once video starts streaming.  We can further expand the
+code out to the following to aid our understanding of what is going on:
+
+```js
+var Media = require('rtc-media');
+var userMedia = new Media({ start: true });
+
+userMedia.render(document.body);
+```
+
+The code above is written in a more traditional JS style, but feel free
+to use the first style as it's quite safe (thanks to some checks in the
+code).
 
 ## Media prototype reference
 

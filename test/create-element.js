@@ -6,9 +6,6 @@ test('can capture a media stream', function(t) {
 
   media().on('start', function(stream) {
     t.ok(stream instanceof MediaStream, 'successfully started media stream');
-
-    // end the stream
-    stream.stop();
   });
 });
 
