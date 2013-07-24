@@ -6,56 +6,55 @@
 /* global HTMLAudioElement: false */
 
 /**
-# rtc-media
+  # rtc-media
 
-Simple [getUserMedia](http://dev.w3.org/2011/webrtc/editor/getusermedia.html)
-cross-browser wrappers.  Part of the [rtc.io](http://rtc.io/) suite.
+  Simple [getUserMedia](http://dev.w3.org/2011/webrtc/editor/getusermedia.html)
+  cross-browser wrappers.  Part of the [rtc.io](http://rtc.io/) suite.
 **/
 
 'use strict';
 
 /**
-## Quick Start
+  ## Quick Start
 
-If you are keen to use the `rtc-media` library along with other modules in 
-the rtc.io suite, then you might want to consider using them in the 
-[recommended development toolchain](http://docs.rtc.io/development-toolchain).
+  If you are keen to use the `rtc-media` library along with other modules in 
+  the rtc.io suite, then you might want to consider using them in the 
+  [recommended development toolchain](http://docs.rtc.io/development-toolchain).
 
-This quick start assumes familiarity with that process.
+  This quick start assumes familiarity with that process.
 
-First, create a new simple HTML page for this example:
+  First, create a new simple HTML page for this example:
 
-```html
-<!DOCTYPE html>
-<head>
-<title>Media Capture Demo</title>
-<style>
-html, body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-}
+  ```html
+  <!DOCTYPE html>
+  <head>
+  <title>Media Capture Demo</title>
+  <style>
+  html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+  }
 
-.video {
-    width: 640px;
-    height: 480px;
-}
-</style>
-</head>
-<body>
-<div class="video"></div>
-<script src="bundle.js"></script>
-</body>
-</html>
-```
+  .video {
+      width: 640px;
+      height: 480px;
+  }
+  </style>
+  </head>
+  <body>
+  <div class="video"></div>
+  </body>
+  </html>
+  ```
 
-And also a JS file that will do most of the work:
+  And also a JS file that will do most of the work:
 
-```js
-var media = require('rtc-media');
+  ```js
+  var media = require('rtc-media');
 
-media().render('.video');
-``` 
+  media().render('.video');
+  ``` 
 **/
 
 var crel = require('crel');
@@ -75,7 +74,7 @@ window.URL = window.URL || detect('URL');
 window.MediaStream = detect('MediaStream');
 
 /**
-## Media prototype reference
+  ## Media prototype reference
 **/
 function Media(opts) {
   if (! (this instanceof Media)) {
@@ -134,9 +133,9 @@ util.inherits(Media, EventEmitter);
 module.exports = Media;
 
 /**
-### attach(target)
+  ### attach(target)
 
-Attach the media stream to the target element
+  Attach the media stream to the target element
 **/
 Media.prototype.render = function(targets, opts, stream) {
   var elements;
@@ -170,11 +169,11 @@ Media.prototype.render = function(targets, opts, stream) {
 };
 
 /**
-### start(constraints, callback)
+  ### start(constraints, callback)
 
-Start the media capture.  If constraints are provided, then they will 
-override the default constraints that were used when the media object was 
-created.
+  Start the media capture.  If constraints are provided, then they will 
+  override the default constraints that were used when the media object was 
+  created.
 **/
 Media.prototype.start = function(constraints, callback) {
   var media = this;
@@ -216,9 +215,9 @@ Media.prototype.start = function(constraints, callback) {
 };
 
 /**
-### stop()
+  ### stop()
 
-Stop the media stream
+  Stop the media stream
 **/
 Media.prototype.stop = function(opts) {
   var media = this;
@@ -243,7 +242,7 @@ Media.prototype.stop = function(opts) {
 };
 
 /**
-### _prepareElements()
+  ### _prepareElements()
 **/
 Media.prototype._prepareElements = function(opts, element) {
   var parent;
@@ -281,7 +280,7 @@ Media.prototype._prepareElements = function(opts, element) {
 };
 
 /**
-### _bindStream(element, stream)
+  ### _bindStream(element, stream)
 **/
 Media.prototype._bindStream = function(stream) {
   var media = this;
@@ -304,9 +303,10 @@ Media.prototype._bindStream = function(stream) {
 };
 
 /**
-### _unbind()
+  ### _unbind()
 
-Gracefully detach elements that are using the stream from the current stream
+  Gracefully detach elements that are using the stream from the 
+  current stream.
 **/
 Media.prototype._unbind = function(opts) {
   // ensure we have opts
@@ -332,10 +332,11 @@ Media.prototype._unbind = function(opts) {
 };
 
 /**
-### _createObjectUrl(stream)
+  ### _createObjectUrl(stream)
 
-This method is used to create an object url that can be attached to a video or 
-audio element.  Object urls are cached to ensure only one is created per stream.
+  This method is used to create an object url that can be attached to a video
+  or audio element.  Object urls are cached to ensure only one is created
+  per stream.
 **/
 Media.prototype._createObjectURL = function(stream) {
   try {
@@ -346,7 +347,7 @@ Media.prototype._createObjectURL = function(stream) {
 };
 
 /**
-### _handleSuccess(stream)
+  ### _handleSuccess(stream)
 **/
 Media.prototype._handleSuccess = function(stream) {
   // update the active stream that we are connected to
@@ -357,7 +358,7 @@ Media.prototype._handleSuccess = function(stream) {
 };
 
 /**
-### _handleFail(evt)
+  ### _handleFail(evt)
 **/
 Media.prototype._handleFail = function() {
   // TODO: make this more friendly
@@ -365,16 +366,16 @@ Media.prototype._handleFail = function() {
 };
 
 /**
-## Debugging Tips
+  ## Debugging Tips
 
-Chrome and Chromium can both be started with the following flag:
+  Chrome and Chromium can both be started with the following flag:
 
-```
---use-fake-device-for-media-stream
-```
+  ```
+  --use-fake-device-for-media-stream
+  ```
 
-This uses a fake stream for the getUserMedia() call rather than attempting
-to capture the actual camera.  This is useful when doing automated testing
-and also if you want to test connectivity between two browser instances and
-want to distinguish between the two local videos.
+  This uses a fake stream for the getUserMedia() call rather than attempting
+  to capture the actual camera.  This is useful when doing automated testing
+  and also if you want to test connectivity between two browser instances and
+  want to distinguish between the two local videos.
 **/
