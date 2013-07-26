@@ -24,7 +24,9 @@
   },
   "testling": {
     "files": "test/all.js",
-    "browsers": []
+    "browsers": {
+      "chrome": [ 25, 26, 27, 28, 29, 30 ]
+    }
   },
   "contributors": []
 }
