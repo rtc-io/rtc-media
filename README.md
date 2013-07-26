@@ -20,6 +20,10 @@ var media = require('rtc-media');
 media().render(document.body);
 ```
 
+[![run on requirebin](http://requirebin.com/badge.png)
+](http://requirebin.com/?gist=904ec1676cdb5e39c8f2)
+
+
 In the code above, we are creating a new instance of our userMedia wrapper
 using the `media()` call and then telling it to render to the
 `document.body` once video starts streaming.  We can further expand the
