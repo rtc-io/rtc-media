@@ -6,7 +6,7 @@
     "webrtc",
     "getusermedia"
   ],
-  "version": "0.1.0",
+  "version": "0.1.1",
   "dependencies": {
     "cog": "0.1.x",
     "feature": "0.0.x"
@@ -25,7 +25,14 @@
   "testling": {
     "files": "test/all.js",
     "browsers": {
-      "chrome": [ 25, 26, 27, 28, 29, 30 ]
+      "chrome": [
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ]
     }
   },
   "contributors": []
