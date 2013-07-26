@@ -29,7 +29,7 @@
   media().render(document.body);
   ```
 
-  [run on requirebin](http://requirebin.com/?gist=g6085450)
+  [run on requirebin](http://requirebin.com/?gist=6085450)
 
   In the code above, we are creating a new instance of our userMedia wrapper
   using the `media()` call and then telling it to render to the
