@@ -1,7 +1,9 @@
 # rtc-media
 
 Simple [getUserMedia](http://dev.w3.org/2011/webrtc/editor/getusermedia.html)
-cross-browser wrappers.  Part of the [rtc.io](http://rtc.io/) suite.
+cross-browser wrappers.  Part of the [rtc.io](http://rtc.io/) suite, which is
+sponsored by [NICTA](http://opennicta.com) and released under an
+[Apache 2.0 license](/LICENSE).
 
 Capturing media on your machine is as simple as:
 

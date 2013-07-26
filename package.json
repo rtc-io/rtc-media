@@ -14,16 +14,19 @@
   "scripts": {
     "lint": "$(npm bin)/jshint *.js",
     "test": "$(npm bin)/testling -x \"google-chrome --user-data-dir=$HOME/.config/chrome-test --use-fake-device-for-media-stream --use-fake-ui-for-media-stream\"",
-    "gendocs": "emu < index.js > README.md"
+    "gendocs": "$(npm bin)/emu < index.js > README.md"
   },
   "devDependencies": {
     "jshint": "~2.1.4",
     "tape": "~1.0.4",
-    "testling": "~1.3.3"
+    "testling": "~1.3.3",
+    "emu": "0.0.2"
   },
   "testling": {
     "files": "test/all.js",
-    "browsers": []
+    "browsers": {
+      "chrome": [ 25, 26, 27, 28, 29, 30 ]
+    }
   },
   "contributors": []
 }
