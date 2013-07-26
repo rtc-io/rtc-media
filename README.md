@@ -21,7 +21,7 @@ media().render(document.body);
 ```
 
 [![run on requirebin](http://requirebin.com/badge.png)
-](http://requirebin.com/?gist=904ec1676cdb5e39c8f2)
+](http://requirebin.com/?gist=6085450)
 
 
 In the code above, we are creating a new instance of our userMedia wrapper
