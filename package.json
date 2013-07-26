@@ -35,5 +35,20 @@
       ]
     }
   },
-  "contributors": []
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rtc-io/rtc-media.git"
+  },
+  "keywords": [
+    "webrtc",
+    "rtc.io"
+  ],
+  "license": "Apache2",
+  "bugs": {
+    "url": "https://github.com/rtc-io/rtc-media/issues"
+  }
 }
