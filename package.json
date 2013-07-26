@@ -6,7 +6,7 @@
     "webrtc",
     "getusermedia"
   ],
-  "version": "0.1.1",
+  "version": "0.1.2",
   "dependencies": {
     "cog": "0.1.x",
     "feature": "0.0.x"
