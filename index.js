@@ -283,12 +283,12 @@ Media.prototype._prepareElements = function(opts, element) {
 
     // if we are preserving aspect ratio do that now
     if (preserveAspectRatio) {
-      element.setAttribute('preserveAspectRatio');
+      element.setAttribute('preserveAspectRatio', '');
     }
 
     // if muted, inject the muted attribute
     if (this.muted) {
-      element.setAttribute('muted');
+      element.setAttribute('muted', '');
     }
 
     // add to the parent
