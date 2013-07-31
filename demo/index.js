@@ -1,4 +1,4 @@
-var media = require('rtc-media');
+var media = require('../');
 var stream = media();
 
 stream.on('start', function() {

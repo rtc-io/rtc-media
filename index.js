@@ -82,14 +82,14 @@ function Media(opts) {
   if (opts instanceof MediaStream) {
     opts = {
       stream: opts,
-      start: false,
+      capture: false,
       muted: false
     };
   }
 
   // ensure we have opts
   opts = extend({}, {
-    start: true,
+    capture: true,
     muted: true,
     constraints: {
       video: {
@@ -118,8 +118,8 @@ function Media(opts) {
   this._bindings = [];
 
   // if we are autostarting, then start
-  if (opts.start) {
-    this.start();
+  if (opts.capture) {
+    this.capture();
   }
 }
 
@@ -127,7 +127,53 @@ util.inherits(Media, EventEmitter);
 module.exports = Media;
 
 /**
-  ### render(targets, opts?, stream?)
+  ### capture(constraints, callback)
+
+  Capture media.  If constraints are provided, then they will 
+  override the default constraints that were used when the media object was 
+  created.
+**/
+Media.prototype.capture = function(constraints, callback) {
+  var media = this;
+  var handleEnd = this.emit.bind(this, 'end');
+
+  // if we already have a stream, then abort
+  if (this.stream) { return; }
+
+  // if no constraints have been provided, but we have 
+  // a callback, deal with it
+  if (typeof constraints == 'function') {
+    callback = constraints;
+    constraints = this.constraints;
+  }
+
+  // if we have a callback, bind to the start event
+  if (typeof callback == 'function') {
+    this.once('capture', callback.bind(this));
+  }
+
+  // get user media, using either the provided constraints or the 
+  // default constraints
+  navigator.getUserMedia(
+    constraints || this.constraints,
+    function(stream) {
+      if (typeof stream.addEventListener == 'function') {
+        stream.addEventListener('ended', handleEnd);
+      }
+      else {
+        stream.onended = handleEnd;
+      }
+
+      // save the stream and emit the start method
+      media.stream = stream;
+      media.emit('capture', stream);
+    },
+    this._handleFail.bind(this)
+  );
+};
+
+/**
+  ### render(targets, opts?, callback?)
 
   Render this media element to elements matching the specified selector or
   specific targets.  If the targets are regular DOM elements rather than 
@@ -150,12 +196,24 @@ module.exports = Media;
   media().render(document.body);
   ```
 
+  You may optionally provide a callback to this function, which is 
+  will be triggered once each of the media elements has started playing
+  the stream:
+
+  ```js
+  media().render(document.body, function(elements) {
+    console.log('captured and playing');
+  });
+  ```
+
 **/
-Media.prototype.render = function(targets, opts, stream) {
+Media.prototype.render = function(targets, opts, callback) {
   var elements;
 
-  // if the stream is not provided, then use the current stream
-  stream = stream || this.stream;
+  if (typeof opts == 'function') {
+    callback = opts;
+    opts = {};
+  }
 
   // ensure we have opts
   opts = opts || {};
@@ -177,62 +235,26 @@ Media.prototype.render = function(targets, opts, stream) {
     .map(this._prepareElements.bind(this, opts));
 
   // if no stream was specified, wait for the stream to initialize
-  if (! stream) {
-    this.once('start', this._bindStream.bind(this));
+  if (! this.stream) {
+    this.once('capture', this._bindStream.bind(this));
   }
   // otherwise, bind the stream now
   else {
     this._bindStream(this.stream);
   }
 
+  // if we have a callback then trigger on the render event
+  if (typeof callback == 'function') {
+    this.once('render', callback);
+  }
+
   // return the video / audio elements
   return elements;
 };
 
-/**
-  ### start(constraints, callback)
-
-  Start the media capture.  If constraints are provided, then they will 
-  override the default constraints that were used when the media object was 
-  created.
-**/
-Media.prototype.start = function(constraints, callback) {
-  var media = this;
-  var handleEnd = this.emit.bind(this, 'stop');
-
-  // if we already have a stream, then abort
-  if (this.stream) { return; }
-
-  // if no constraints have been provided, but we have 
-  // a callback, deal with it
-  if (typeof constraints == 'function') {
-    callback = constraints;
-    constraints = this.constraints;
-  }
-
-  // if we have a callback, bind to the start event
-  if (typeof callback == 'function') {
-    this.once('start', callback.bind(this));
-  }
-
-  // get user media, using either the provided constraints or the 
-  // default constraints
-  navigator.getUserMedia(
-    constraints || this.constraints,
-    function(stream) {
-      if (typeof stream.addEventListener == 'function') {
-        stream.addEventListener('ended', handleEnd);
-      }
-      else {
-        stream.onended = handleEnd;
-      }
-
-      // save the stream and emit the start method
-      media.stream = stream;
-      media.emit('start', stream);
-    },
-    this._handleFail.bind(this)
-  );
+Media.prototype.start = function() {
+  console.log('start method has been deprecated, please use capture instead');
+  this.capture.apply(this, arguments);
 };
 
 /**
@@ -252,7 +274,7 @@ Media.prototype.stop = function(opts) {
   this.stream.stop();
 
   // on start rebind
-  this.once('start', function(stream) {
+  this.once('capture', function(stream) {
     media._bindings.forEach(function(binding) {
       media._bindStream(stream, binding.opts, binding.el);
     });
@@ -310,9 +332,29 @@ Media.prototype._prepareElements = function(opts, element) {
 **/
 Media.prototype._bindStream = function(stream) {
   var media = this;
+  var elements = [];
+  var waiting = [];
+
+  function checkWaiting() {
+    // if we have no waiting elements, but some elements
+    // trigger the start event
+    if (waiting.length === 0 && elements.length > 0) {
+      media.emit('render', elements);
+    }
+  }
+
+  function playbackStarted(evt) {
+    var videoIndex = elements.indexOf(evt.srcElement);
+
+    if (videoIndex >= 0) {
+      waiting.splice(videoIndex, 1);
+    }
+
+    checkWaiting();
+  }
 
   // iterate through the bindings and bind the stream
-  this._bindings.map(function(binding) {
+  elements = this._bindings.map(function(binding) {
     // check for mozSrcObject
     if (typeof binding.el.mozSrcObject != 'undefined') {
       binding.el.mozSrcObject = stream;
@@ -325,7 +367,21 @@ Media.prototype._bindStream = function(stream) {
     if (typeof binding.el.play == 'function') {
       binding.el.play();
     }
+
+    return binding.el;
   });
+
+  // find the elements we are waiting on
+  waiting = elements.filter(function(el) {
+    return el.readyState < 3; // readystate < HAVE_FUTURE_DATA
+  });
+
+  // wait for all the video elements
+  waiting.map(function(el) {
+    el.addEventListener('playing', playbackStarted, false);
+  });
+
+  checkWaiting();
 };
 
 /**
