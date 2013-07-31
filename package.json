@@ -9,17 +9,16 @@
   "version": "0.1.2",
   "dependencies": {
     "cog": "0.1.x",
-    "feature": "0.0.x"
+    "rtc-core": "~0.3.0"
   },
   "scripts": {
     "lint": "$(npm bin)/jshint *.js",
-    "test": "$(npm bin)/testling -x \"google-chrome --user-data-dir=$HOME/.config/chrome-test --use-fake-device-for-media-stream --use-fake-ui-for-media-stream\"",
-    "gendocs": "$(npm bin)/emu < index.js > README.md"
+    "test": "testling -x \"google-chrome --user-data-dir=$HOME/.config/chrome-test --use-fake-device-for-media-stream --use-fake-ui-for-media-stream\"",
+    "gendocs": "sourcecat | emu > README.md"
   },
   "devDependencies": {
     "jshint": "~2.1.4",
     "tape": "~1.0.4",
-    "testling": "~1.3.3",
     "emu": "0.0.2"
   },
   "testling": {

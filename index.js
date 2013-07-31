@@ -51,9 +51,10 @@
 
 'use strict';
 
+var debug = require('rtc-core/debug')('media');
 var extend = require('cog/extend');
 var qsa = require('cog/qsa');
-var detect = require('feature/detect');
+var detect = require('rtc-core/detect');
 var EventEmitter = require('events').EventEmitter;
 var util = require('util');
 
