@@ -152,6 +152,8 @@ module.exports = Media;
 
 **/
 Media.prototype.render = function(targets, opts, stream) {
+  var elements;
+
   // if the stream is not provided, then use the current stream
   stream = stream || this.stream;
 
@@ -169,15 +171,22 @@ Media.prototype.render = function(targets, opts, stream) {
     targets = [].concat(targets || []);
   }
 
+  // create the video / audio elements
+  elements = targets
+    .filter(Boolean)
+    .map(this._prepareElements.bind(this, opts));
+
   // if no stream was specified, wait for the stream to initialize
   if (! stream) {
     this.once('start', this._bindStream.bind(this));
   }
+  // otherwise, bind the stream now
+  else {
+    this._bindStream(this.stream);
+  }
 
-  // bind the stream to all the identified targets
-  return targets
-            .filter(Boolean)
-            .map(this._prepareElements.bind(this, opts));
+  // return the video / audio elements
+  return elements;
 };
 
 /**
@@ -275,12 +284,12 @@ Media.prototype._prepareElements = function(opts, element) {
 
     // if we are preserving aspect ratio do that now
     if (preserveAspectRatio) {
-      element.setAttribute('preserveAspectRatio');
+      element.setAttribute('preserveAspectRatio', '');
     }
 
     // if muted, inject the muted attribute
     if (this.muted) {
-      element.setAttribute('muted');
+      element.setAttribute('muted', '');
     }
 
     // add to the parent

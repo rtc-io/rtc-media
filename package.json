@@ -13,7 +13,6 @@
   },
   "scripts": {
     "lint": "$(npm bin)/jshint *.js",
-    "test": "testling -x \"google-chrome --user-data-dir=$HOME/.config/chrome-test --use-fake-device-for-media-stream --use-fake-ui-for-media-stream\"",
     "gendocs": "sourcecat | emu > README.md"
   },
   "devDependencies": {
@@ -23,16 +22,10 @@
   },
   "testling": {
     "files": "test/all.js",
-    "browsers": {
-      "chrome": [
-        25,
-        26,
-        27,
-        28,
-        29,
-        30
-      ]
-    }
+    "browsers": [
+      "chrome/25..canary",
+      "firefox/nightly"
+    ]
   },
   "main": "index.js",
   "directories": {
