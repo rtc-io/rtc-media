@@ -9,29 +9,23 @@
   "version": "0.1.4",
   "dependencies": {
     "cog": "0.1.x",
-    "feature": "0.0.x"
+    "rtc-core": "~0.3.0"
   },
   "scripts": {
     "lint": "$(npm bin)/jshint *.js",
-    "test": "node test/all.js",
-    "gendocs": "$(npm bin)/emu < index.js > README.md"
+    "gendocs": "sourcecat | emu > README.md"
   },
   "devDependencies": {
     "jshint": "~2.1.4",
     "tape": "~1.0.4",
-    "testling": "~1.5.1",
     "emu": "0.0.2"
   },
   "testling": {
     "files": "test/all.js",
-    "browsers": {
-      "firefox": [
-        25
-      ],
-      "chrome": [
-        28
-      ]
-    }
+    "browsers": [
+      "chrome/25..canary",
+      "firefox/nightly"
+    ]
   },
   "main": "index.js",
   "directories": {
