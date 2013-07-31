@@ -26,6 +26,8 @@ function validFrame(frame) {
     return false;
   }
 
+  // TODO: get the pixel data and check we have an image
+
   return true;
 }
 

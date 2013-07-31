@@ -23,11 +23,11 @@ test('can render a media stream', function(t) {
     })
     .on('render', function() {
       t.ok(checkVideo(elements), 'valid streams');
+      t.equal(elements[0].parentNode, document.body, 'element inserted');
     })
     .render(document.body);
 
   t.equal(elements.length, 1);
-  t.equal(elements[0].parentNode, document.body);
 });
 
 test('can wrap an existing stream', function(t) {

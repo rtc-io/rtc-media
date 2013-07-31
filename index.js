@@ -273,12 +273,8 @@ Media.prototype.stop = function(opts) {
   // stop the stream, and tell the world
   this.stream.stop();
 
-  // on start rebind
-  this.once('capture', function(stream) {
-    media._bindings.forEach(function(binding) {
-      media._bindStream(stream, binding.opts, binding.el);
-    });
-  });
+  // on capture rebind
+  this.once('capture', media._bindStream.bind(media));
 
   // remove the reference to the stream
   this.stream = null;
@@ -316,6 +312,7 @@ Media.prototype._prepareElements = function(opts, element) {
 
     // add to the parent
     parent.appendChild(element);
+    element.setAttribute('data-playing', false);
   }
 
   // flag the element as bound
@@ -340,6 +337,10 @@ Media.prototype._bindStream = function(stream) {
     // trigger the start event
     if (waiting.length === 0 && elements.length > 0) {
       media.emit('render', elements);
+
+      elements.map(function(el) {
+        el.setAttribute('data-playing', true);
+      });
     }
   }
 
@@ -350,6 +351,7 @@ Media.prototype._bindStream = function(stream) {
       waiting.splice(videoIndex, 1);
     }
 
+    evt.srcElement.removeEventListener('playing', playbackStarted);
     checkWaiting();
   }
 
