@@ -345,7 +345,25 @@ Media.prototype.stop = function(opts) {
 };
 
 /**
+  ## Debugging Tips
+
+  Chrome and Chromium can both be started with the following flag:
+
+  ```
+  --use-fake-device-for-media-stream
+  ```
+
+  This uses a fake stream for the getUserMedia() call rather than attempting
+  to capture the actual camera.  This is useful when doing automated testing
+  and also if you want to test connectivity between two browser instances and
+  want to distinguish between the two local videos.
+
   ## Internal Methods
+
+  There are a number of internal methods that are used in the `rtc-media`
+  implementation. These are outlined below, but not expected to be of
+  general use.
+
 **/
 
 /**
@@ -508,7 +526,7 @@ Media.prototype._createObjectURL = function(stream) {
   ### _handleSuccess(stream)
 
   Handle the success condition of a `getUserMedia` call.
-  
+
 **/
 Media.prototype._handleSuccess = function(stream) {
   // update the active stream that we are connected to
@@ -528,18 +546,3 @@ Media.prototype._handleFail = function() {
   // TODO: make this more friendly
   this.emit('error', new Error('Unable to capture requested media'));
 };
-
-/**
-  ## Debugging Tips
-
-  Chrome and Chromium can both be started with the following flag:
-
-  ```
-  --use-fake-device-for-media-stream
-  ```
-
-  This uses a fake stream for the getUserMedia() call rather than attempting
-  to capture the actual camera.  This is useful when doing automated testing
-  and also if you want to test connectivity between two browser instances and
-  want to distinguish between the two local videos.
-**/

@@ -146,7 +146,24 @@ media().render(document.body, function(elements) {
 
 Stop the media stream
 
+## Debugging Tips
+
+Chrome and Chromium can both be started with the following flag:
+
+```
+--use-fake-device-for-media-stream
+```
+
+This uses a fake stream for the getUserMedia() call rather than attempting
+to capture the actual camera.  This is useful when doing automated testing
+and also if you want to test connectivity between two browser instances and
+want to distinguish between the two local videos.
+
 ## Internal Methods
+
+There are a number of internal methods that are used in the `rtc-media`
+implementation. These are outlined below, but not expected to be of
+general use.
 
 ### _prepareElements(opts, element)
 
@@ -175,16 +192,3 @@ Handle the success condition of a `getUserMedia` call.
 ### _handleFail(evt)
 
 Handle the failure condition of a `getUserMedia` call.
-
-## Debugging Tips
-
-Chrome and Chromium can both be started with the following flag:
-
-```
---use-fake-device-for-media-stream
-```
-
-This uses a fake stream for the getUserMedia() call rather than attempting
-to capture the actual camera.  This is useful when doing automated testing
-and also if you want to test connectivity between two browser instances and
-want to distinguish between the two local videos.
