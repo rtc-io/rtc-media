@@ -13,7 +13,7 @@
   },
   "scripts": {
     "lint": "$(npm bin)/jshint *.js",
-    "gendocs": "sourcecat | emu > README.md"
+    "gendocs": "gendocs > README.md"
   },
   "devDependencies": {
     "jshint": "~2.1.4",

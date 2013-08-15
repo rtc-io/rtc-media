@@ -5,6 +5,11 @@ cross-browser wrappers.  Part of the [rtc.io](http://rtc.io/) suite, which is
 sponsored by [NICTA](http://opennicta.com) and released under an
 [Apache 2.0 license](/LICENSE).
 
+
+[![NPM](https://nodei.co/npm/rtc-media.png)](https://nodei.co/npm/rtc-media/)
+
+[![unstable](http://hughsk.github.io/stability-badges/dist/unstable.svg)](http://github.com/hughsk/stability-badges)
+
 ## Installation
 
 ```
