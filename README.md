@@ -146,9 +146,16 @@ media().render(document.body, function(elements) {
 
 Stop the media stream
 
-### _prepareElements()
+## Internal Methods
 
-### _bindStream(element, stream)
+### _prepareElements(opts, element)
+
+The prepareElements function is used to prepare DOM elements that will
+receive the media streams once the stream have been successfully captured.
+
+### _bindStream(stream)
+
+Bind a stream to previously prepared DOM elements.
 
 ### _unbind()
 
@@ -163,7 +170,11 @@ per stream.
 
 ### _handleSuccess(stream)
 
+Handle the success condition of a `getUserMedia` call.
+
 ### _handleFail(evt)
+
+Handle the failure condition of a `getUserMedia` call.
 
 ## Debugging Tips
 

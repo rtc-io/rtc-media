@@ -132,7 +132,7 @@ window.MediaStream = detect('MediaStream');
         audio: true
       }
     ```
-  
+
 **/
 function Media(opts) {
   if (! (this instanceof Media)) {
@@ -345,7 +345,14 @@ Media.prototype.stop = function(opts) {
 };
 
 /**
-  ### _prepareElements()
+  ## Internal Methods
+**/
+
+/**
+  ### _prepareElements(opts, element)
+
+  The prepareElements function is used to prepare DOM elements that will
+  receive the media streams once the stream have been successfully captured.
 **/
 Media.prototype._prepareElements = function(opts, element) {
   var parent;
@@ -389,7 +396,10 @@ Media.prototype._prepareElements = function(opts, element) {
 };
 
 /**
-  ### _bindStream(element, stream)
+  ### _bindStream(stream)
+
+  Bind a stream to previously prepared DOM elements.
+
 **/
 Media.prototype._bindStream = function(stream) {
   var media = this;
@@ -496,6 +506,9 @@ Media.prototype._createObjectURL = function(stream) {
 
 /**
   ### _handleSuccess(stream)
+
+  Handle the success condition of a `getUserMedia` call.
+  
 **/
 Media.prototype._handleSuccess = function(stream) {
   // update the active stream that we are connected to
@@ -507,6 +520,9 @@ Media.prototype._handleSuccess = function(stream) {
 
 /**
   ### _handleFail(evt)
+
+  Handle the failure condition of a `getUserMedia` call.
+
 **/
 Media.prototype._handleFail = function() {
   // TODO: make this more friendly
