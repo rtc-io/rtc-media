@@ -66,7 +66,44 @@ media().once('capture', function(stream) {
 
 ## Reference
 
-## Media prototype reference
+### media(opts?)
+
+Capture media using the underlying
+[getUserMedia](http://www.w3.org/TR/mediacapture-streams/) API.
+
+The function accepts a single argument which can be either be:
+
+- a. An options object (see below), or;
+- b. An existing
+  [MediaStream](http://www.w3.org/TR/mediacapture-streams/#mediastream) that
+  the media object will bind to and provide you some DOM helpers for.
+
+#### Options Reference
+
+The function supports the following options:
+
+- `capture` - Whether capture should be initiated automatically. Defaults
+  to true, but toggled to false automatically if an existing stream is
+  provided.
+
+- `muted` - Whether the video element created for this stream should be
+  muted.  Default is true but is set to false when an existing stream is
+  passed.
+
+- `constraints` - The constraint option allows you to specify particular
+  media capture constraints which can allow you do do some pretty cool
+  tricks.  By default, the contraints used to request the media are 
+  fairly standard defaults:
+
+  ```js
+  {
+    video: {
+      mandatory: {},
+      optional: []
+    },
+    audio: true
+  }
+  ```
 
 ### capture(constraints, callback)
 

@@ -96,7 +96,44 @@ window.URL = window.URL || detect('URL');
 window.MediaStream = detect('MediaStream');
 
 /**
-  ## Media prototype reference
+  ### media(opts?)
+
+  Capture media using the underlying
+  [getUserMedia](http://www.w3.org/TR/mediacapture-streams/) API.
+
+  The function accepts a single argument which can be either be:
+
+  - a. An options object (see below), or;
+  - b. An existing
+    [MediaStream](http://www.w3.org/TR/mediacapture-streams/#mediastream) that
+    the media object will bind to and provide you some DOM helpers for.
+
+  #### Options Reference
+
+  The function supports the following options:
+
+  - `capture` - Whether capture should be initiated automatically. Defaults
+    to true, but toggled to false automatically if an existing stream is
+    provided.
+
+  - `muted` - Whether the video element created for this stream should be
+    muted.  Default is true but is set to false when an existing stream is
+    passed.
+
+  - `constraints` - The constraint option allows you to specify particular
+    media capture constraints which can allow you do do some pretty cool
+    tricks.  By default, the contraints used to request the media are 
+    fairly standard defaults:
+
+    ```js
+    {
+      video: {
+        mandatory: {},
+        optional: []
+      },
+      audio: true
+    }
+    ```
 **/
 function Media(opts) {
   if (! (this instanceof Media)) {
@@ -145,9 +182,9 @@ function Media(opts) {
   // TODO: revisit whether this is the best way to manage this
   this._bindings = [];
 
-  // if we are autostarting, then start
+  // if we are autostarting, capture media on the next tick
   if (opts.capture) {
-    this.capture();
+    setTimeout(this.capture.bind(this), 0);
   }
 }
 
