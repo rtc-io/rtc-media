@@ -78,8 +78,6 @@ The function accepts a single argument which can be either be:
   [MediaStream](http://www.w3.org/TR/mediacapture-streams/#mediastream) that
   the media object will bind to and provide you some DOM helpers for.
 
-#### Options Reference
-
 The function supports the following options:
 
 - `capture` - Whether capture should be initiated automatically. Defaults
@@ -96,13 +94,13 @@ The function supports the following options:
   fairly standard defaults:
 
   ```js
-  {
-    video: {
-      mandatory: {},
-      optional: []
-    },
-    audio: true
-  }
+    {
+      video: {
+        mandatory: {},
+        optional: []
+      },
+      audio: true
+    }
   ```
 
 ### capture(constraints, callback)
