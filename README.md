@@ -5,6 +5,21 @@ cross-browser wrappers.  Part of the [rtc.io](http://rtc.io/) suite, which is
 sponsored by [NICTA](http://opennicta.com) and released under an
 [Apache 2.0 license](/LICENSE).
 
+## Installation
+
+```
+npm install rtc-media --save
+```
+
+Or, you can use the `rtc-media` module as part of the
+[rtc](https://github.com/rtc-io/rtc) suite by installing rtc:
+
+```
+npm install rtc --save
+```
+
+## Example Usage
+
 Capturing media on your machine is as simple as:
 
 ```js
@@ -38,9 +53,28 @@ The code above is written in a more traditional JS style, but feel free
 to use the first style as it's quite safe (thanks to some checks in the
 code).
 
+### Media Events
+
+If you want to know when media is captured (and you probably do), then
+you can tap into the `capture` event of the created media object:
+
+```js
+media().once('capture', function(stream) {
+  // stream references underlying media stream that was captured
+});
+```
+
+## Reference
+
 ## Media prototype reference
 
-### render(targets, opts?, stream?)
+### capture(constraints, callback)
+
+Capture media.  If constraints are provided, then they will 
+override the default constraints that were used when the media object was 
+created.
+
+### render(targets, opts?, callback?)
 
 Render this media element to elements matching the specified selector or
 specific targets.  If the targets are regular DOM elements rather than 
@@ -63,11 +97,15 @@ var media = require('rtc-media'); // or require('rtc/media')
 media().render(document.body);
 ```
 
-### start(constraints, callback)
+You may optionally provide a callback to this function, which is 
+will be triggered once each of the media elements has started playing
+the stream:
 
-Start the media capture.  If constraints are provided, then they will 
-override the default constraints that were used when the media object was 
-created.
+```js
+media().render(document.body, function(elements) {
+  console.log('captured and playing');
+});
+```
 
 ### stop()
 

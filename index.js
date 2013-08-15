@@ -14,6 +14,21 @@
   sponsored by [NICTA](http://opennicta.com) and released under an
   [Apache 2.0 license](/LICENSE).
 
+  ## Installation
+
+  ```
+  npm install rtc-media --save
+  ```
+
+  Or, you can use the `rtc-media` module as part of the
+  [rtc](https://github.com/rtc-io/rtc) suite by installing rtc:
+
+  ```
+  npm install rtc --save
+  ```
+
+  ## Example Usage
+
   Capturing media on your machine is as simple as:
 
   ```js
@@ -46,6 +61,19 @@
   The code above is written in a more traditional JS style, but feel free
   to use the first style as it's quite safe (thanks to some checks in the
   code).
+
+  ### Media Events
+
+  If you want to know when media is captured (and you probably do), then
+  you can tap into the `capture` event of the created media object:
+
+  ```js
+  media().once('capture', function(stream) {
+    // stream references underlying media stream that was captured
+  });
+  ```
+
+  ## Reference
 
 **/
 
