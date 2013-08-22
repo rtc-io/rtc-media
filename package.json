@@ -2,10 +2,6 @@
   "name": "rtc-media",
   "description": "A simple getUserMedia wrapper",
   "author": "Damon Oehlman <damon.oehlman@nicta.com.au>",
-  "tags": [
-    "webrtc",
-    "getusermedia"
-  ],
   "version": "0.2.1",
   "dependencies": {
     "cog": "0.2.x",
@@ -36,7 +32,8 @@
   },
   "keywords": [
     "webrtc",
-    "rtc.io"
+    "rtc.io",
+    "getusermedia"
   ],
   "license": "Apache 2.0",
   "bugs": {

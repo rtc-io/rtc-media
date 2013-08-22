@@ -10,19 +10,6 @@ sponsored by [NICTA](http://opennicta.com) and released under an
 
 [![unstable](http://hughsk.github.io/stability-badges/dist/unstable.svg)](http://github.com/hughsk/stability-badges)
 
-## Installation
-
-```
-npm install rtc-media --save
-```
-
-Or, you can use the `rtc-media` module as part of the
-[rtc](https://github.com/rtc-io/rtc) suite by installing rtc:
-
-```
-npm install rtc --save
-```
-
 ## Example Usage
 
 Capturing media on your machine is as simple as:
@@ -36,8 +23,7 @@ do anything with it.  Lets take a look at a more realistic example:
 
 ```js
 var media = require('rtc-media');
-
-media().render(document.body);
+media().render('.video');
 ```
 
 [run on requirebin](http://requirebin.com/?gist=6085450)

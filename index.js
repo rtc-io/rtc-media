@@ -14,19 +14,6 @@
   sponsored by [NICTA](http://opennicta.com) and released under an
   [Apache 2.0 license](/LICENSE).
 
-  ## Installation
-
-  ```
-  npm install rtc-media --save
-  ```
-
-  Or, you can use the `rtc-media` module as part of the
-  [rtc](https://github.com/rtc-io/rtc) suite by installing rtc:
-
-  ```
-  npm install rtc --save
-  ```
-
   ## Example Usage
 
   Capturing media on your machine is as simple as:
@@ -38,11 +25,7 @@
   While this will in fact start the user media capture process, it won't 
   do anything with it.  Lets take a look at a more realistic example:
 
-  ```js
-  var media = require('rtc-media');
-
-  media().render(document.body);
-  ```
+  <<< examples/simple/index.js
 
   [run on requirebin](http://requirebin.com/?gist=6085450)
 
