@@ -25,7 +25,7 @@
   While this will in fact start the user media capture process, it won't 
   do anything with it.  Lets take a look at a more realistic example:
 
-  <<< examples/simple/index.js
+  <<<js gist://6085450
 
   [run on requirebin](http://requirebin.com/?gist=6085450)
 

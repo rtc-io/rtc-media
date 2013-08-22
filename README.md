@@ -22,8 +22,11 @@ While this will in fact start the user media capture process, it won't
 do anything with it.  Lets take a look at a more realistic example:
 
 ```js
+// require the media capture helper from rtc.io
 var media = require('rtc-media');
-media().render('.video');
+ 
+// capture video and render it to the document body
+media().render(document.body);
 ```
 
 [run on requirebin](http://requirebin.com/?gist=6085450)
