@@ -62,7 +62,7 @@
 
 'use strict';
 
-var debug = require('rtc-core/debug')('media');
+var debug = require('cog/logger')('media');
 var extend = require('cog/extend');
 var qsa = require('cog/qsa');
 var detect = require('rtc-core/detect');
