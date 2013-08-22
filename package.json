@@ -8,7 +8,7 @@
   ],
   "version": "0.2.1",
   "dependencies": {
-    "cog": "0.1.x",
+    "cog": "0.2.x",
     "rtc-core": "~0.3.0"
   },
   "scripts": {
@@ -17,8 +17,7 @@
   },
   "devDependencies": {
     "jshint": "~2.1.4",
-    "tape": "~1.0.4",
-    "emu": "0.0.2"
+    "tape": "~1.0.4"
   },
   "testling": {
     "files": "test/all.js",
@@ -39,7 +38,7 @@
     "webrtc",
     "rtc.io"
   ],
-  "license": "Apache2",
+  "license": "Apache 2.0",
   "bugs": {
     "url": "https://github.com/rtc-io/rtc-media/issues"
   }
