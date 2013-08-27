@@ -126,7 +126,7 @@ function Media(opts) {
   EventEmitter.call(this);
 
   // if the opts is a media stream instance, then handle that appropriately
-  if (opts instanceof MediaStream) {
+  if (opts && opts instanceof MediaStream) {
     opts = {
       stream: opts,
       capture: false,

@@ -8,11 +8,10 @@
     "rtc-core": "~0.4.0"
   },
   "scripts": {
-    "lint": "$(npm bin)/jshint *.js",
+    "lint": "jshint *.js",
     "gendocs": "gendocs > README.md"
   },
   "devDependencies": {
-    "jshint": "~2.1.4",
     "tape": "~1.0.4"
   },
   "testling": {
