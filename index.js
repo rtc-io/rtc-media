@@ -363,6 +363,12 @@ Media.prototype._prepareElements = function(opts, element) {
         typeof opts.preserveAspectRatio == 'undefined' ||
         opts.preserveAspectRatio;
 
+  // perform some additional checks for things that "look" like a
+  // media element
+  validElement = validElement || (typeof element.play == 'function') && (
+    typeof element.mozSrcObject != 'undefined' ||
+    typeof element.src != 'undefined');
+
   // if the element is not a video element, then create one
   if (! validElement) {
     parent = element;
