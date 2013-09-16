@@ -45,16 +45,26 @@
   to use the first style as it's quite safe (thanks to some checks in the
   code).
 
-  ### Media Events
+  ### Events
 
-  If you want to know when media is captured (and you probably do), then
-  you can tap into the `capture` event of the created media object:
+  Once a media object has been created, it will provide a number of events
+  through the standard node EventEmitter API.
+
+  #### `capture`
+
+  The `capture` event is triggered once the requested media stream has
+  been captured by the browser.
 
   ```js
   media().once('capture', function(stream) {
     // stream references underlying media stream that was captured
   });
   ```
+
+  #### `render`
+
+  The `render` event is triggered once the stream has been rendered
+  to the any supplied (or created) video elements.
 
   ## Reference
 

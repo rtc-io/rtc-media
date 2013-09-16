@@ -22,11 +22,7 @@ While this will in fact start the user media capture process, it won't
 do anything with it.  Lets take a look at a more realistic example:
 
 ```js
-// require the media capture helper from rtc.io
-var media = require('rtc-media');
- 
-// capture video and render it to the document body
-media().render(document.body);
+<html><body>You are being <a href="https://github.com/gist/6085450">redirected</a>.</body></html>
 ```
 
 [run on requirebin](http://requirebin.com/?gist=6085450)
@@ -47,16 +43,26 @@ The code above is written in a more traditional JS style, but feel free
 to use the first style as it's quite safe (thanks to some checks in the
 code).
 
-### Media Events
+### Events
 
-If you want to know when media is captured (and you probably do), then
-you can tap into the `capture` event of the created media object:
+Once a media object has been created, it will provide a number of events
+through the standard node EventEmitter API.
+
+#### `capture`
+
+The `capture` event is triggered once the requested media stream has
+been captured by the browser.
 
 ```js
 media().once('capture', function(stream) {
   // stream references underlying media stream that was captured
 });
 ```
+
+#### `render`
+
+The `render` event is triggered once the stream has been rendered
+to the any supplied (or created) video elements.
 
 ## Reference
 
