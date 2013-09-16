@@ -136,7 +136,7 @@ function Media(opts) {
 
   // if we've been passed opts and they look like constraints, move things
   // around a little
-  if (opts && opts.audio || opts.video) {
+  if (opts && (opts.audio || opts.video)) {
     opts = {
       constraints: opts
     };
