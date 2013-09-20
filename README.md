@@ -118,7 +118,11 @@ Capture media.  If constraints are provided, then they will
 override the default constraints that were used when the media object was 
 created.
 
-### render(target, opts?, callback?)
+### render
+
+```js
+render(target, opts?, callback?)
+```
 
 Render the captured media to the specified target element.  While previous
 versions of rtc-media accepted a selector string or an array of elements

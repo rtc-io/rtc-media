@@ -246,7 +246,11 @@ Media.prototype.capture = function(constraints, callback) {
 };
 
 /**
-  ### render(target, opts?, callback?)
+  ### render
+
+  ```js
+  render(target, opts?, callback?)
+  ```
 
   Render the captured media to the specified target element.  While previous
   versions of rtc-media accepted a selector string or an array of elements
