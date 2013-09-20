@@ -66,6 +66,15 @@
   The `render` event is triggered once the stream has been rendered
   to the any supplied (or created) video elements.
 
+  While it might seem a little confusing that when the `render` event
+  fires that it returns an array of elements rather than a single element
+  (which is what is provided when calling the `render` method).
+
+  This occurs because it is completely valid to render a single captured
+  media stream to multiple media elements on a page.  The `render` event
+  is reporting once the render operation has completed for all targets that
+  have been registered with the capture stream.
+
   ## Reference
 
 **/
