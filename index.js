@@ -97,7 +97,11 @@ window.URL = window.URL || detect('URL');
 window.MediaStream = detect('MediaStream');
 
 /**
-  ### media(opts?)
+  ### media
+
+  ```
+  media(opts?)
+  ```
 
   Capture media using the underlying
   [getUserMedia](http://www.w3.org/TR/mediacapture-streams/) API.
@@ -133,7 +137,7 @@ window.MediaStream = detect('MediaStream');
         audio: true
       }
     ```
-
+  
 **/
 function Media(opts) {
   if (! (this instanceof Media)) {
@@ -200,7 +204,11 @@ util.inherits(Media, EventEmitter);
 module.exports = Media;
 
 /**
-  ### capture(constraints, callback)
+  ### capture
+
+  ```
+  capture(constraints, callback)
+  ```
 
   Capture media.  If constraints are provided, then they will 
   override the default constraints that were used when the media object was 

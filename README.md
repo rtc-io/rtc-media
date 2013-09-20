@@ -75,7 +75,11 @@ have been registered with the capture stream.
 
 ## Reference
 
-### media(opts?)
+### media
+
+```
+media(opts?)
+```
 
 Capture media using the underlying
 [getUserMedia](http://www.w3.org/TR/mediacapture-streams/) API.
@@ -112,7 +116,11 @@ The function supports the following options:
     }
   ```
 
-### capture(constraints, callback)
+### capture
+
+```
+capture(constraints, callback)
+```
 
 Capture media.  If constraints are provided, then they will 
 override the default constraints that were used when the media object was 
