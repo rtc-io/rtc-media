@@ -13,21 +13,21 @@ test('can capture a media stream', function(t) {
 });
 
 test('can render a media stream', function(t) {
-  var elements;
+  var element;
 
   t.plan(4);
 
-  elements = media()
+  element = media()
     .on('capture', function(stream) {
       t.ok(stream instanceof MediaStream, 'valid stream');
     })
     .on('render', function() {
-      t.ok(checkVideo(elements), 'valid streams');
-      t.equal(elements[0].parentNode, document.body, 'element inserted');
+      t.ok(checkVideo([element]), 'valid streams');
+      t.equal(element.parentNode, document.body, 'element inserted');
     })
     .render(document.body);
 
-  t.equal(elements.length, 1);
+  t.ok(element instanceof HTMLMediaElement, 'created media element');
 });
 
 test('can wrap an existing stream', function(t) {

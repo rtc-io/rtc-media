@@ -109,18 +109,16 @@ Capture media.  If constraints are provided, then they will
 override the default constraints that were used when the media object was 
 created.
 
-### render(targets, opts?, callback?)
+### render(target, opts?, callback?)
 
-Render this media element to elements matching the specified selector or
-specific targets.  If the targets are regular DOM elements rather than 
-`video` or `audio` elements, then new `video` or `audio` elements are 
-created to accept the media stream once started.
+Render the captured media to the specified target element.  While previous
+versions of rtc-media accepted a selector string or an array of elements
+this has been dropped in favour of __one single target element__.
 
-In all cases, an array of video/audio elements (either created or 
-existing) from the render call and can be manipulated as required by 
-your application.  It is important to note, however, that the elements
-may not yet have streams associated with them due to the async nature
-of the underlying `getUserMedia` API (requesting permission, etc).
+If the target element is a valid MediaElement then it will become the
+target of the captured media stream.  If, however, it is a generic DOM
+element it will a new Media element will be created that using the target
+as it's parent.
 
 A simple example of requesting default media capture and rendering to the 
 document body is shown below:
@@ -165,9 +163,9 @@ There are a number of internal methods that are used in the `rtc-media`
 implementation. These are outlined below, but not expected to be of
 general use.
 
-### _prepareElements(opts, element)
+### _prepareElement(opts, element)
 
-The prepareElements function is used to prepare DOM elements that will
+The prepareElement function is used to prepare DOM elements that will
 receive the media streams once the stream have been successfully captured.
 
 ### _bindStream(stream)

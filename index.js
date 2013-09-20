@@ -74,7 +74,6 @@
 
 var debug = require('cog/logger')('media');
 var extend = require('cog/extend');
-var qsa = require('cog/qsa');
 var detect = require('rtc-core/detect');
 var EventEmitter = require('events').EventEmitter;
 var util = require('util');
@@ -238,18 +237,16 @@ Media.prototype.capture = function(constraints, callback) {
 };
 
 /**
-  ### render(targets, opts?, callback?)
+  ### render(target, opts?, callback?)
 
-  Render this media element to elements matching the specified selector or
-  specific targets.  If the targets are regular DOM elements rather than 
-  `video` or `audio` elements, then new `video` or `audio` elements are 
-  created to accept the media stream once started.
+  Render the captured media to the specified target element.  While previous
+  versions of rtc-media accepted a selector string or an array of elements
+  this has been dropped in favour of __one single target element__.
 
-  In all cases, an array of video/audio elements (either created or 
-  existing) from the render call and can be manipulated as required by 
-  your application.  It is important to note, however, that the elements
-  may not yet have streams associated with them due to the async nature
-  of the underlying `getUserMedia` API (requesting permission, etc).
+  If the target element is a valid MediaElement then it will become the
+  target of the captured media stream.  If, however, it is a generic DOM
+  element it will a new Media element will be created that using the target
+  as it's parent.
 
   A simple example of requesting default media capture and rendering to the 
   document body is shown below:
@@ -272,8 +269,13 @@ Media.prototype.capture = function(constraints, callback) {
   ```
 
 **/
-Media.prototype.render = function(targets, opts, callback) {
-  var elements;
+Media.prototype.render = function(target, opts, callback) {
+  // if the target is an array, extract the first element
+  if (Array.isArray(target)) {
+    // log a warning
+    console.log('WARNING: rtc-media render (as of 1.x) expects a single target');
+    target = target[0];
+  }
 
   if (typeof opts == 'function') {
     callback = opts;
@@ -283,21 +285,8 @@ Media.prototype.render = function(targets, opts, callback) {
   // ensure we have opts
   opts = opts || {};
 
-  // TODO: free existing elements
-
-  // use qsa to get the targets
-  if (typeof targets == 'string' || (targets instanceof String)) {
-    targets = qsa(targets);
-  }
-  // otherwise, make sure we have an array
-  else {
-    targets = [].concat(targets || []);
-  }
-
   // create the video / audio elements
-  elements = targets
-    .filter(Boolean)
-    .map(this._prepareElements.bind(this, opts));
+  target = this._prepareElement(opts, target);
 
   // if no stream was specified, wait for the stream to initialize
   if (! this.stream) {
@@ -313,13 +302,7 @@ Media.prototype.render = function(targets, opts, callback) {
     this.once('render', callback);
   }
 
-  // return the video / audio elements
-  return elements;
-};
-
-Media.prototype.start = function() {
-  console.log('start method has been deprecated, please use capture instead');
-  this.capture.apply(this, arguments);
+  return target;
 };
 
 /**
@@ -368,12 +351,12 @@ Media.prototype.stop = function(opts) {
 **/
 
 /**
-  ### _prepareElements(opts, element)
+  ### _prepareElement(opts, element)
 
-  The prepareElements function is used to prepare DOM elements that will
+  The prepareElement function is used to prepare DOM elements that will
   receive the media streams once the stream have been successfully captured.
 **/
-Media.prototype._prepareElements = function(opts, element) {
+Media.prototype._prepareElement = function(opts, element) {
   var parent;
   var validElement = (element instanceof HTMLVideoElement) ||
         (element instanceof HTMLAudioElement);
