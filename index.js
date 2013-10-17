@@ -405,14 +405,14 @@ Media.prototype._prepareElement = function(opts, element) {
       element.setAttribute('preserveAspectRatio', '');
     }
 
-    // if muted, inject the muted attribute
-    if (this.muted) {
-      element.setAttribute('muted', '');
-    }
-
     // add to the parent
     parent.appendChild(element);
     element.setAttribute('data-playing', false);
+  }
+
+  // if muted, inject the muted attribute
+  if (element && this.muted) {
+    element.setAttribute('muted', '');
   }
 
   // flag the element as bound
