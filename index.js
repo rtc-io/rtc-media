@@ -21,8 +21,8 @@
   ```js
   require('rtc-media')();
   ```
-  
-  While this will in fact start the user media capture process, it won't 
+
+  While this will in fact start the user media capture process, it won't
   do anything with it.  Lets take a look at a more realistic example:
 
   <<<js gist://6085450
@@ -125,7 +125,7 @@ window.MediaStream = detect('MediaStream');
 
   - `constraints` - The constraint option allows you to specify particular
     media capture constraints which can allow you do do some pretty cool
-    tricks.  By default, the contraints used to request the media are 
+    tricks.  By default, the contraints used to request the media are
     fairly standard defaults:
 
     ```js
@@ -137,7 +137,7 @@ window.MediaStream = detect('MediaStream');
         audio: true
       }
     ```
-  
+
 **/
 function Media(opts) {
   if (! (this instanceof Media)) {
@@ -189,7 +189,7 @@ function Media(opts) {
   // initialise the muted state
   this.muted = typeof opts.muted == 'undefined' || opts.muted;
 
-  // create a bindings array so we have a rough idea of where 
+  // create a bindings array so we have a rough idea of where
   // we have been attached to
   // TODO: revisit whether this is the best way to manage this
   this._bindings = [];
@@ -210,8 +210,8 @@ module.exports = Media;
   capture(constraints, callback)
   ```
 
-  Capture media.  If constraints are provided, then they will 
-  override the default constraints that were used when the media object was 
+  Capture media.  If constraints are provided, then they will
+  override the default constraints that were used when the media object was
   created.
 **/
 Media.prototype.capture = function(constraints, callback) {
@@ -221,7 +221,7 @@ Media.prototype.capture = function(constraints, callback) {
   // if we already have a stream, then abort
   if (this.stream) { return; }
 
-  // if no constraints have been provided, but we have 
+  // if no constraints have been provided, but we have
   // a callback, deal with it
   if (typeof constraints == 'function') {
     callback = constraints;
@@ -233,7 +233,7 @@ Media.prototype.capture = function(constraints, callback) {
     this.once('capture', callback.bind(this));
   }
 
-  // get user media, using either the provided constraints or the 
+  // get user media, using either the provided constraints or the
   // default constraints
   navigator.getUserMedia(
     constraints || this.constraints,
@@ -269,7 +269,7 @@ Media.prototype.capture = function(constraints, callback) {
   element it will a new Media element will be created that using the target
   as it's parent.
 
-  A simple example of requesting default media capture and rendering to the 
+  A simple example of requesting default media capture and rendering to the
   document body is shown below:
 
   ```js
@@ -279,7 +279,7 @@ Media.prototype.capture = function(constraints, callback) {
   media().render(document.body);
   ```
 
-  You may optionally provide a callback to this function, which is 
+  You may optionally provide a callback to this function, which is
   will be triggered once each of the media elements has started playing
   the stream:
 
@@ -396,7 +396,7 @@ Media.prototype._prepareElement = function(opts, element) {
     parent = element;
 
     // create a new video element
-    // TODO: create an appropriate element based on the types of tracks 
+    // TODO: create an appropriate element based on the types of tracks
     // available
     element = document.createElement('video');
 
@@ -492,7 +492,7 @@ Media.prototype._bindStream = function(stream) {
 /**
   ### _unbind()
 
-  Gracefully detach elements that are using the stream from the 
+  Gracefully detach elements that are using the stream from the
   current stream.
 **/
 Media.prototype._unbind = function(opts) {

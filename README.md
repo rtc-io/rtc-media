@@ -18,11 +18,11 @@ Capturing media on your machine is as simple as:
 require('rtc-media')();
 ```
 
-While this will in fact start the user media capture process, it won't 
+While this will in fact start the user media capture process, it won't
 do anything with it.  Lets take a look at a more realistic example:
 
-```js
-<html><body>You are being <a href="https://github.com/gist/6085450">redirected</a>.</body></html>
+```
+ERROR: could not find: js
 ```
 
 [run on requirebin](http://requirebin.com/?gist=6085450)
@@ -103,7 +103,7 @@ The function supports the following options:
 
 - `constraints` - The constraint option allows you to specify particular
   media capture constraints which can allow you do do some pretty cool
-  tricks.  By default, the contraints used to request the media are 
+  tricks.  By default, the contraints used to request the media are
   fairly standard defaults:
 
   ```js
@@ -122,8 +122,8 @@ The function supports the following options:
 capture(constraints, callback)
 ```
 
-Capture media.  If constraints are provided, then they will 
-override the default constraints that were used when the media object was 
+Capture media.  If constraints are provided, then they will
+override the default constraints that were used when the media object was
 created.
 
 ### render
@@ -141,7 +141,7 @@ target of the captured media stream.  If, however, it is a generic DOM
 element it will a new Media element will be created that using the target
 as it's parent.
 
-A simple example of requesting default media capture and rendering to the 
+A simple example of requesting default media capture and rendering to the
 document body is shown below:
 
 ```js
@@ -151,7 +151,7 @@ var media = require('rtc-media'); // or require('rtc/media')
 media().render(document.body);
 ```
 
-You may optionally provide a callback to this function, which is 
+You may optionally provide a callback to this function, which is
 will be triggered once each of the media elements has started playing
 the stream:
 
@@ -195,7 +195,7 @@ Bind a stream to previously prepared DOM elements.
 
 ### _unbind()
 
-Gracefully detach elements that are using the stream from the 
+Gracefully detach elements that are using the stream from the
 current stream.
 
 ### _createObjectUrl(stream)
