@@ -5,15 +5,14 @@
   "version": "1.1.1",
   "dependencies": {
     "cog": "~0.3.1",
-    "rtc-core": "~0.5.0",
-    "tape": "~2.1.0"
+    "rtc-core": "~0.5.0"
   },
   "scripts": {
     "lint": "jshint *.js",
     "gendocs": "gendocs > README.md"
   },
   "devDependencies": {
-    "tape": "~1.0.4"
+    "tape": "~2.1.0"
   },
   "testling": {
     "files": "test/all.js",
