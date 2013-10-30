@@ -448,13 +448,14 @@ Media.prototype._bindStream = function(stream) {
   }
 
   function playbackStarted(evt) {
-    var videoIndex = elements.indexOf(evt.srcElement);
+    var el = evt.target || evt.srcElement;
+    var videoIndex = elements.indexOf(el);
 
     if (videoIndex >= 0) {
       waiting.splice(videoIndex, 1);
     }
 
-    evt.srcElement.removeEventListener('playing', playbackStarted);
+    el.removeEventListener('playing', playbackStarted);
     checkWaiting();
   }
 
