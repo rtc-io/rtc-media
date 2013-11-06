@@ -1,10 +1,23 @@
 /* jshint node: true */
-/* global navigator: false */
 /* global window: false */
 /* global document: false */
 /* global MediaStream: false */
 /* global HTMLVideoElement: false */
 /* global HTMLAudioElement: false */
+
+'use strict';
+
+var async = require('async');
+var debug = require('cog/logger')('media');
+var extend = require('cog/extend');
+var detect = require('rtc-core/detect');
+var EventEmitter = require('events').EventEmitter;
+var util = require('util');
+
+// create the capture queue
+// this has been set to a concurrency of 1 as I have noticed rare instances
+// where a browser will not handle parallel requests nicely
+var captureQueue = async.queue(require('./capture'), 1);
 
 /**
   # rtc-media
@@ -78,17 +91,6 @@
   ## Reference
 
 **/
-
-'use strict';
-
-var debug = require('cog/logger')('media');
-var extend = require('cog/extend');
-var detect = require('rtc-core/detect');
-var EventEmitter = require('events').EventEmitter;
-var util = require('util');
-
-// monkey patch getUserMedia from the prefixed version
-navigator.getUserMedia = detect.call(navigator, 'getUserMedia');
 
 // patch window url
 window.URL = window.URL || detect('URL');
@@ -218,6 +220,26 @@ Media.prototype.capture = function(constraints, callback) {
   var media = this;
   var handleEnd = this.emit.bind(this, 'end');
 
+  function completeCapture(err, stream) {
+    if (err) {
+      return media.emit(
+        'error',
+        new Error('Unable to capture requested media')
+      );
+    }
+
+    if (typeof stream.addEventListener == 'function') {
+      stream.addEventListener('ended', handleEnd);
+    }
+    else {
+      stream.onended = handleEnd;
+    }
+
+    // save the stream and emit the start method
+    media.stream = stream;
+    media.emit('capture', stream);
+  }
+
   // if we already have a stream, then abort
   if (this.stream) { return; }
 
@@ -233,24 +255,8 @@ Media.prototype.capture = function(constraints, callback) {
     this.once('capture', callback.bind(this));
   }
 
-  // get user media, using either the provided constraints or the
-  // default constraints
-  navigator.getUserMedia(
-    constraints || this.constraints,
-    function(stream) {
-      if (typeof stream.addEventListener == 'function') {
-        stream.addEventListener('ended', handleEnd);
-      }
-      else {
-        stream.onended = handleEnd;
-      }
-
-      // save the stream and emit the start method
-      media.stream = stream;
-      media.emit('capture', stream);
-    },
-    this._handleFail.bind(this)
-  );
+  // queue up our media request
+  captureQueue.push(constraints || this.constraints, completeCapture);
 };
 
 /**
@@ -546,15 +552,4 @@ Media.prototype._handleSuccess = function(stream) {
 
   // emit the stream event
   this.emit('stream', stream);
-};
-
-/**
-  ### _handleFail(evt)
-
-  Handle the failure condition of a `getUserMedia` call.
-
-**/
-Media.prototype._handleFail = function() {
-  // TODO: make this more friendly
-  this.emit('error', new Error('Unable to capture requested media'));
 };
