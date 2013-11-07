@@ -5,8 +5,7 @@
   "version": "1.2.0",
   "dependencies": {
     "cog": "~0.3.1",
-    "rtc-core": "~0.5.0",
-    "async": "~0.2.9"
+    "rtc-core": "~0.5.0"
   },
   "scripts": {
     "lint": "jshint *.js",
