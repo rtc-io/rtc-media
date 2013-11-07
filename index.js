@@ -6,6 +6,14 @@
 /* global HTMLVideoElement: false */
 /* global HTMLAudioElement: false */
 
+'use strict';
+
+var debug = require('cog/logger')('media');
+var extend = require('cog/extend');
+var detect = require('rtc-core/detect');
+var EventEmitter = require('events').EventEmitter;
+var util = require('util');
+
 /**
   # rtc-media
 
@@ -78,14 +86,6 @@
   ## Reference
 
 **/
-
-'use strict';
-
-var debug = require('cog/logger')('media');
-var extend = require('cog/extend');
-var detect = require('rtc-core/detect');
-var EventEmitter = require('events').EventEmitter;
-var util = require('util');
 
 // monkey patch getUserMedia from the prefixed version
 navigator.getUserMedia = detect.call(navigator, 'getUserMedia');
