@@ -154,9 +154,10 @@ A simple example of requesting default media capture and rendering to the
 document body is shown below:
 
 ```js
-var media = require('rtc-media'); // or require('rtc/media')
+// require the media capture helper from rtc.io
+var media = require('rtc-media');
 
-// start the stream and render to the document body once active
+// capture video and render it to the document body
 media().render(document.body);
 ```
 
@@ -165,8 +166,10 @@ will be triggered once each of the media elements has started playing
 the stream:
 
 ```js
-media().render(document.body, function(elements) {
-  console.log('captured and playing');
+var media = require('rtc-media');
+
+media().render(document.body, function(el) {
+  console.log('captured and playing to media element: ', el);
 });
 ```
 

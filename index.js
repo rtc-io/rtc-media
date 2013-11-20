@@ -421,7 +421,7 @@ Media.prototype._bindStream = function(stream) {
     // if we have no waiting elements, but some elements
     // trigger the start event
     if (waiting.length === 0 && elements.length > 0) {
-      media.emit('render', elements);
+      media.emit('render', elements[0]);
 
       elements.map(function(el) {
         el.setAttribute('data-playing', true);
