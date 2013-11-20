@@ -25,7 +25,7 @@
   While this will in fact start the user media capture process, it won't
   do anything with it.  Lets take a look at a more realistic example:
 
-  <<<js gist://6085450
+  <<< examples/render-to-body.js
 
   [run on requirebin](http://requirebin.com/?gist=6085450)
 
@@ -34,12 +34,7 @@
   `document.body` once video starts streaming.  We can further expand the
   code out to the following to aid our understanding of what is going on:
 
-  ```js
-  var Media = require('rtc-media');
-  var userMedia = new Media({ start: true });
-
-  userMedia.render(document.body);
-  ```
+  <<< examples/capture-explicit.js
 
   The code above is written in a more traditional JS style, but feel free
   to use the first style as it's quite safe (thanks to some checks in the
@@ -55,11 +50,7 @@
   The `capture` event is triggered once the requested media stream has
   been captured by the browser.
 
-  ```js
-  media().once('capture', function(stream) {
-    // stream references underlying media stream that was captured
-  });
-  ```
+  <<< examples/capture-event.js
 
   #### `render`
 
@@ -272,22 +263,13 @@ Media.prototype.capture = function(constraints, callback) {
   A simple example of requesting default media capture and rendering to the
   document body is shown below:
 
-  ```js
-  var media = require('rtc-media'); // or require('rtc/media')
-
-  // start the stream and render to the document body once active
-  media().render(document.body);
-  ```
+  <<< examples/render-to-body.js
 
   You may optionally provide a callback to this function, which is
   will be triggered once each of the media elements has started playing
   the stream:
 
-  ```js
-  media().render(document.body, function(elements) {
-    console.log('captured and playing');
-  });
-  ```
+  <<< examples/render-capture-callback.js
 
 **/
 Media.prototype.render = function(target, opts, callback) {

@@ -21,8 +21,12 @@ require('rtc-media')();
 While this will in fact start the user media capture process, it won't
 do anything with it.  Lets take a look at a more realistic example:
 
-```
-ERROR: could not find: js
+```js
+// require the media capture helper from rtc.io
+var media = require('rtc-media');
+
+// capture video and render it to the document body
+media().render(document.body);
 ```
 
 [run on requirebin](http://requirebin.com/?gist=6085450)
@@ -54,8 +58,13 @@ The `capture` event is triggered once the requested media stream has
 been captured by the browser.
 
 ```js
-media().once('capture', function(stream) {
+var media = require('rtc-media');
+var localMedia = require('rtc-media')();
+
+localMedia.render(document.body);
+localMedia.once('capture', function(stream) {
   // stream references underlying media stream that was captured
+  console.log('capture complete');
 });
 ```
 
