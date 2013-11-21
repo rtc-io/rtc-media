@@ -79,7 +79,8 @@ var EventEmitter = require('events').EventEmitter;
 var util = require('util');
 
 // monkey patch getUserMedia from the prefixed version
-navigator.getUserMedia = detect.call(navigator, 'getUserMedia');
+navigator.getUserMedia = navigator.getUserMedia ||
+  detect.call(navigator, 'getUserMedia');
 
 // patch window url
 window.URL = window.URL || detect('URL');
