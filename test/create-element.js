@@ -33,10 +33,10 @@ test('can render a media stream', function(t) {
 test('can wrap an existing stream', function(t) {
   t.plan(3);
 
-  media(testStream).render(document.body, function(elements) {
-    t.equal(elements.length, 1);
-    t.equal(elements[0].parentNode, document.body);
-    t.ok(checkVideo(elements), 'valid streams');
+  media(testStream).render(document.body, function(el) {
+    t.ok(el);
+    t.equal(el.parentNode, document.body);
+    t.ok(checkVideo([el]), 'valid streams');
   });
 });
 
