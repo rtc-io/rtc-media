@@ -537,7 +537,6 @@ Media.prototype._handleSuccess = function(stream) {
   Handle the failure condition of a `getUserMedia` call.
 
 **/
-Media.prototype._handleFail = function() {
-  // TODO: make this more friendly
-  this.emit('error', new Error('Unable to capture requested media'));
+Media.prototype._handleFail = function(err) {
+  this.emit('error', err);
 };
