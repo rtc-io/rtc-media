@@ -404,6 +404,7 @@ Media.prototype._prepareElement = function(opts, element) {
 
   // if muted, inject the muted attribute
   if (element && this.muted) {
+    element.muted = true;
     element.setAttribute('muted', '');
   }
 
