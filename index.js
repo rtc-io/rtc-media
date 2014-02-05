@@ -373,6 +373,10 @@ Media.prototype._prepareElement = function(opts, element) {
         typeof opts.preserveAspectRatio == 'undefined' ||
         opts.preserveAspectRatio;
 
+  if (! element) {
+    throw new Error('Cannot render media to a null element');
+  }
+
   // perform some additional checks for things that "look" like a
   // media element
   validElement = validElement || (typeof element.play == 'function') && (
