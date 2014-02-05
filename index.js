@@ -72,7 +72,7 @@
 
 'use strict';
 
-var debug = require('cog/logger')('media');
+var debug = require('cog/logger')('rtc-media');
 var extend = require('cog/extend');
 var detect = require('rtc-core/detect');
 var EventEmitter = require('events').EventEmitter;
@@ -227,6 +227,7 @@ Media.prototype.capture = function(constraints, callback) {
 
   // get user media, using either the provided constraints or the
   // default constraints
+  debug('getUserMedia, constraints: ', constraints || this.constraints);
   navigator.getUserMedia(
     constraints || this.constraints,
     function(stream) {
@@ -241,7 +242,11 @@ Media.prototype.capture = function(constraints, callback) {
       media.stream = stream;
       media.emit('capture', stream);
     },
-    this._handleFail.bind(this)
+
+    function(err) {
+      debug('getUserMedia attempt failed: ', err);
+      media.emit('error', err);
+    }
   );
 };
 
@@ -529,14 +534,4 @@ Media.prototype._handleSuccess = function(stream) {
 
   // emit the stream event
   this.emit('stream', stream);
-};
-
-/**
-  ### _handleFail(evt)
-
-  Handle the failure condition of a `getUserMedia` call.
-
-**/
-Media.prototype._handleFail = function(err) {
-  this.emit('error', err);
 };
