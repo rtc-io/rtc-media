@@ -4,7 +4,7 @@
   "author": "Damon Oehlman <damon.oehlman@nicta.com.au>",
   "version": "1.5.3",
   "dependencies": {
-    "cog": "~0.4.1",
+    "cog": "~0.5.1",
     "rtc-core": "~0.7.1"
   },
   "scripts": {
