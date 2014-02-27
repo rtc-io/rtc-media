@@ -440,7 +440,7 @@ Media.prototype._bindStream = function(stream) {
     }
   }
 
-  function playbackStarted(evt) {
+  function canPlay(evt) {
     var el = evt.target || evt.srcElement;
     var videoIndex = elements.indexOf(el);
 
@@ -448,7 +448,9 @@ Media.prototype._bindStream = function(stream) {
       waiting.splice(videoIndex, 1);
     }
 
-    el.removeEventListener('playing', playbackStarted);
+    el.play();
+    el.removeEventListener('canplay', canPlay);
+    el.removeEventListener('loadedmetadata', canPlay);
     checkWaiting();
   }
 
@@ -462,11 +464,8 @@ Media.prototype._bindStream = function(stream) {
       binding.el.src = media._createObjectURL(stream) || stream;
     }
 
-    // attempt to play the video
-    if (typeof binding.el.play == 'function') {
-      binding.el.play();
-    }
-
+    // attempt playback (may not work if the stream isn't quite ready)
+    binding.el.play();
     return binding.el;
   });
 
@@ -476,8 +475,9 @@ Media.prototype._bindStream = function(stream) {
   });
 
   // wait for all the video elements
-  waiting.map(function(el) {
-    el.addEventListener('playing', playbackStarted, false);
+  waiting.forEach(function(el) {
+    el.addEventListener('canplay', canPlay, false);
+    el.addEventListener('loadedmetadata', canPlay, false);
   });
 
   checkWaiting();
