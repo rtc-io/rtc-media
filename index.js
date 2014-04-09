@@ -165,7 +165,12 @@ function Media(opts) {
         mandatory: {},
         optional: []
       },
-      audio: true
+      audio: true,
+
+      // specify the fake flag if we detect we are running in the test
+      // environment, on chrome this will do nothing but in firefox it will
+      // use a fake video device
+      fake: typeof __testlingConsole != 'undefined'
     }
   }, opts);
 
