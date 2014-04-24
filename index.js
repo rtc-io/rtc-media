@@ -385,6 +385,7 @@ Media.prototype._prepareElement = function(opts, element) {
   // perform some additional checks for things that "look" like a
   // media element
   validElement = validElement || (typeof element.play == 'function') && (
+    typeof element.srcObject != 'undefined' ||
     typeof element.mozSrcObject != 'undefined' ||
     typeof element.src != 'undefined');
 
@@ -461,8 +462,12 @@ Media.prototype._bindStream = function(stream) {
 
   // iterate through the bindings and bind the stream
   elements = this._bindings.map(function(binding) {
+    // check for srcObject
+    if (typeof binding.el.srcObject != 'undefined') {
+      binding.el.srcObject = stream;
+    }
     // check for mozSrcObject
-    if (typeof binding.el.mozSrcObject != 'undefined') {
+    else if (typeof binding.el.mozSrcObject != 'undefined') {
       binding.el.mozSrcObject = stream;
     }
     else {
