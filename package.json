@@ -4,15 +4,15 @@
   "author": "Damon Oehlman <damon.oehlman@nicta.com.au>",
   "version": "1.6.1",
   "dependencies": {
-    "cog": "~0.5.1",
-    "rtc-core": "~0.7.1"
+    "cog": "~0.5",
+    "rtc-core": "^1"
   },
   "scripts": {
     "lint": "jshint *.js",
     "gendocs": "gendocs > README.md"
   },
   "devDependencies": {
-    "tape": "~2.3.0"
+    "tape": "^2"
   },
   "testling": {
     "files": "test/all.js",
