@@ -1,2 +1,2 @@
 var media = require('../../');
-media().render('.video');
+media().render(document.querySelector('.video'));
