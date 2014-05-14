@@ -196,14 +196,14 @@ function Media(opts) {
   this._bindings = [];
 
   // see if we are using a plugin
-  plugin = ((opts || {}).plugins || []).filter(function(plugin) {
+  plugin = this.plugin = ((opts || {}).plugins || []).filter(function(plugin) {
     return plugin.supported(detect);
   })[0];
 
   if (plugin && typeof plugin.init == 'function') {
     // if we are using a plugin, give it an opportunity to patch the
     // media capture interface
-    plugin.initMedia(media, function(err) {
+    media._pinst = plugin.init(function(err) {
       if (err) {
         return media.emit('error', err);
       }
@@ -263,6 +263,7 @@ Media.prototype.capture = function(constraints, callback) {
   navigator.getUserMedia(
     constraints || this.constraints,
     function(stream) {
+      debug('sucessfully captured media stream: ', stream);
       if (typeof stream.addEventListener == 'function') {
         stream.addEventListener('ended', handleEnd);
       }
@@ -391,6 +392,15 @@ Media.prototype.stop = function(opts) {
 
 **/
 
+Media.prototype._createBinding = function(opts, element) {
+  this._bindings.push({
+    el: element,
+    opts: opts
+  });
+
+  return element;
+};
+
 /**
   ### _prepareElement(opts, element)
 
@@ -407,6 +417,14 @@ Media.prototype._prepareElement = function(opts, element) {
 
   if (! element) {
     throw new Error('Cannot render media to a null element');
+  }
+
+  // if the plugin wants to prepare elemnets, then let it
+  if (this.plugin && typeof this.plugin.prepareElement == 'function') {
+    return this._createBinding(
+      opts,
+      this.plugin.prepareElement.call(this._pinst, opts, element)
+    );
   }
 
   // perform some additional checks for things that "look" like a
@@ -441,13 +459,7 @@ Media.prototype._prepareElement = function(opts, element) {
     element.setAttribute('muted', '');
   }
 
-  // flag the element as bound
-  this._bindings.push({
-    el: element,
-    opts: opts
-  });
-
-  return element;
+  return this._createBinding(opts, element);
 };
 
 /**
@@ -485,6 +497,11 @@ Media.prototype._bindStream = function(stream) {
     el.removeEventListener('canplay', canPlay);
     el.removeEventListener('loadedmetadata', canPlay);
     checkWaiting();
+  }
+
+  // if we have a plugin that knows how to attach a stream, then let it do it
+  if (this.plugin && typeof this.plugin.attachStream == 'function') {
+    return this.plugin.attachStream.call(this._pinst, stream, this._bindings);
   }
 
   // iterate through the bindings and bind the stream
