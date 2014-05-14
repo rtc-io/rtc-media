@@ -140,7 +140,7 @@ function Media(opts) {
   EventEmitter.call(this);
 
   // if the opts is a media stream instance, then handle that appropriately
-  if (opts && opts instanceof MediaStream) {
+  if (opts && MediaStream && opts instanceof MediaStream) {
     opts = {
       stream: opts,
       capture: false,
@@ -228,6 +228,11 @@ Media.prototype.capture = function(constraints, callback) {
   // if we have a callback, bind to the start event
   if (typeof callback == 'function') {
     this.once('capture', callback.bind(this));
+  }
+
+  // if we don't have get the ability to capture user media, then abort
+  if (typeof navigator.getUserMedia != 'function') {
+    return callback && callback(new Error('Unable to capture user media'));
   }
 
   // get user media, using either the provided constraints or the
