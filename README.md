@@ -8,7 +8,7 @@ sponsored by [NICTA](http://opennicta.com) and released under an
 
 [![NPM](https://nodei.co/npm/rtc-media.png)](https://nodei.co/npm/rtc-media/)
 
-[![unstable](http://hughsk.github.io/stability-badges/dist/unstable.svg)](http://github.com/hughsk/stability-badges)
+[![unstable](https://img.shields.io/badge/stability-unstable-yellowgreen.svg)](https://github.com/badges/stability-badges) [![Dependency Status](https://david-dm.org/rtc-io/rtc-media.svg)](https://david-dm.org/rtc-io/rtc-media) 
 
 ## Example Usage
 
@@ -220,15 +220,11 @@ per stream.
 
 Handle the success condition of a `getUserMedia` call.
 
-### _handleFail(evt)
-
-Handle the failure condition of a `getUserMedia` call.
-
 ## License(s)
 
 ### Apache 2.0
 
-Copyright 2013 National ICT Australia Limited (NICTA)
+Copyright 2014 National ICT Australia Limited (NICTA)
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
