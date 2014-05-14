@@ -132,6 +132,10 @@ window.MediaStream = detect('MediaStream');
 
 **/
 function Media(opts) {
+  var media = this;
+  var plugin;
+
+  // check the constructor has been called
   if (! (this instanceof Media)) {
     return new Media(opts);
   }
@@ -191,8 +195,26 @@ function Media(opts) {
   // TODO: revisit whether this is the best way to manage this
   this._bindings = [];
 
+  // see if we are using a plugin
+  plugin = ((opts || {}).plugins || []).filter(function(plugin) {
+    return plugin.supported(detect);
+  })[0];
+
+  if (plugin && typeof plugin.init == 'function') {
+    // if we are using a plugin, give it an opportunity to patch the
+    // media capture interface
+    plugin.initMedia(media, function(err) {
+      if (err) {
+        return media.emit('error', err);
+      }
+
+      if (opts.capture) {
+        media.capture();
+      }
+    });
+  }
   // if we are autostarting, capture media on the next tick
-  if (opts.capture) {
+  else if (opts.capture) {
     setTimeout(this.capture.bind(this), 0);
   }
 }
