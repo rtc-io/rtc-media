@@ -2,7 +2,7 @@
   "name": "rtc-media",
   "description": "A simple getUserMedia wrapper",
   "author": "Damon Oehlman <damon.oehlman@nicta.com.au>",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "dependencies": {
     "cog": "~0.5",
     "rtc-core": "^1"
