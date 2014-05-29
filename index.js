@@ -273,7 +273,11 @@ Media.prototype.capture = function(constraints, callback) {
 
       // save the stream and emit the start method
       media.stream = stream;
-      media.emit('capture', stream);
+
+      // emit capture on next tick which works around a bug when using plugins
+      setTimeout(function() {
+        media.emit('capture', stream);
+      }, 0);
     },
 
     function(err) {
