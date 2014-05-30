@@ -5,7 +5,7 @@
   "version": "1.6.3",
   "dependencies": {
     "cog": "~0.5",
-    "rtc-core": "^1"
+    "rtc-core": "^1.2"
   },
   "scripts": {
     "lint": "jshint *.js",
