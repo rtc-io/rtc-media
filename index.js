@@ -134,7 +134,6 @@ window.MediaStream = detect('MediaStream');
 **/
 function Media(opts) {
   var media = this;
-  var plugin;
 
   // check the constructor has been called
   if (! (this instanceof Media)) {
@@ -201,7 +200,7 @@ function Media(opts) {
   if (this.plugin) {
     // if we are using a plugin, give it an opportunity to patch the
     // media capture interface
-    media._pinst = plugin.init(opts, function(err) {
+    media._pinst = this.plugin.init(opts, function(err) {
       if (err) {
         return media.emit('error', err);
       }
