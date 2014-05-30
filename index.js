@@ -75,6 +75,7 @@
 var debug = require('cog/logger')('rtc-media');
 var extend = require('cog/extend');
 var detect = require('rtc-core/detect');
+var plugin = require('rtc-core/plugin');
 var EventEmitter = require('events').EventEmitter;
 var util = require('util');
 
@@ -196,14 +197,11 @@ function Media(opts) {
   this._bindings = [];
 
   // see if we are using a plugin
-  plugin = this.plugin = ((opts || {}).plugins || []).filter(function(plugin) {
-    return plugin.supported(detect);
-  })[0];
-
-  if (plugin && typeof plugin.init == 'function') {
+  this.plugin = plugin((opts || {}).plugins);
+  if (this.plugin) {
     // if we are using a plugin, give it an opportunity to patch the
     // media capture interface
-    media._pinst = plugin.init(function(err) {
+    media._pinst = plugin.init(opts, function(err) {
       if (err) {
         return media.emit('error', err);
       }
