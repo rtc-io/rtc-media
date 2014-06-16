@@ -13,7 +13,8 @@
     "gendocs": "gendocs > README.md"
   },
   "devDependencies": {
-    "tape": "^2"
+    "tape": "^2",
+    "testling": "^1"
   },
   "testling": {
     "files": "test/all.js",
