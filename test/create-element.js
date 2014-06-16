@@ -33,7 +33,7 @@ test('can render a media stream', function(t) {
 test('can wrap an existing stream', function(t) {
   t.plan(3);
 
-  media(testStream).render(document.body, function(el) {
+  media({ stream: testStream, muted: true }).render(document.body, function(el) {
     t.ok(el);
     t.equal(el.parentNode, document.body);
     t.ok(checkVideo([el]), 'valid streams');
