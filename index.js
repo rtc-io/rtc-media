@@ -146,9 +146,7 @@ function Media(opts) {
   // if the opts is a media stream instance, then handle that appropriately
   if (opts && MediaStream && opts instanceof MediaStream) {
     opts = {
-      stream: opts,
-      capture: false,
-      muted: false
+      stream: opts
     };
   }
 
@@ -162,8 +160,8 @@ function Media(opts) {
 
   // ensure we have opts
   opts = extend({}, {
-    capture: true,
-    muted: true,
+    capture: (! opts) || (! opts.stream),
+    muted: (! opts) || (! opts.stream),
     constraints: {
       video: {
         mandatory: {},
@@ -201,11 +199,12 @@ function Media(opts) {
     // if we are using a plugin, give it an opportunity to patch the
     // media capture interface
     media._pinst = this.plugin.init(opts, function(err) {
+      console.log('initialization complete');
       if (err) {
         return media.emit('error', err);
       }
 
-      if (opts.capture) {
+      if ((! opts.stream) && opts.capture) {
         media.capture();
       }
     });
@@ -330,6 +329,7 @@ Media.prototype.render = function(target, opts, callback) {
 
   // create the video / audio elements
   target = this._prepareElement(opts, target);
+  console.log('attempting render, stream: ', this.stream);
 
   // if no stream was specified, wait for the stream to initialize
   if (! this.stream) {
