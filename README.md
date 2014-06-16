@@ -8,7 +8,7 @@ sponsored by [NICTA](http://opennicta.com) and released under an
 
 [![NPM](https://nodei.co/npm/rtc-media.png)](https://nodei.co/npm/rtc-media/)
 
-[![unstable](https://img.shields.io/badge/stability-unstable-yellowgreen.svg)](https://github.com/badges/stability-badges) [![Dependency Status](https://david-dm.org/rtc-io/rtc-media.svg)](https://david-dm.org/rtc-io/rtc-media) 
+[![Build Status](https://img.shields.io/travis/rtc-io/rtc-media.svg?branch=master)](https://travis-ci.org/rtc-io/rtc-media) [![unstable](https://img.shields.io/badge/stability-unstable-yellowgreen.svg)](https://github.com/badges/stability-badges) [![Dependency Status](https://david-dm.org/rtc-io/rtc-media.svg)](https://david-dm.org/rtc-io/rtc-media) 
 
 ## Example Usage
 
