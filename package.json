@@ -8,6 +8,7 @@
     "rtc-core": "^1.2"
   },
   "scripts": {
+    "test": "testling -x ./.travis/start-$BROWSER.sh",
     "lint": "jshint *.js",
     "gendocs": "gendocs > README.md"
   },
