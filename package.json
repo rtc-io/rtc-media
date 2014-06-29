@@ -4,8 +4,8 @@
   "author": "Damon Oehlman <damon.oehlman@nicta.com.au>",
   "version": "1.6.6",
   "dependencies": {
-    "cog": "~0.5",
-    "rtc-core": "^1.2"
+    "cog": "^1.0.0",
+    "rtc-core": "^2.0.0"
   },
   "scripts": {
     "test": "testling -x ./.travis/start-$BROWSER.sh",
