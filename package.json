@@ -5,6 +5,7 @@
   "version": "1.7.0",
   "dependencies": {
     "cog": "^1.0.0",
+    "inherits": "^2.0.1",
     "rtc-core": "^2.0.0"
   },
   "scripts": {

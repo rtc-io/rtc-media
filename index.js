@@ -77,7 +77,7 @@ var extend = require('cog/extend');
 var detect = require('rtc-core/detect');
 var plugin = require('rtc-core/plugin');
 var EventEmitter = require('events').EventEmitter;
-var util = require('util');
+var inherits = require('inherits');
 
 // monkey patch getUserMedia from the prefixed version
 navigator.getUserMedia = navigator.getUserMedia ||
@@ -215,7 +215,7 @@ function Media(opts) {
   }
 }
 
-util.inherits(Media, EventEmitter);
+inherits(Media, EventEmitter);
 module.exports = Media;
 
 /**
