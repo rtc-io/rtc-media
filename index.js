@@ -76,7 +76,7 @@ var debug = require('cog/logger')('rtc-media');
 var extend = require('cog/extend');
 var detect = require('rtc-core/detect');
 var plugin = require('rtc-core/plugin');
-var EventEmitter = require('events').EventEmitter;
+var EventEmitter = require('eventemitter3');
 var inherits = require('inherits');
 
 // monkey patch getUserMedia from the prefixed version
