@@ -8,7 +8,7 @@ sponsored by [NICTA](http://opennicta.com) and released under an
 
 [![NPM](https://nodei.co/npm/rtc-media.png)](https://nodei.co/npm/rtc-media/)
 
-[![Build Status](https://img.shields.io/travis/rtc-io/rtc-media.svg?branch=master)](https://travis-ci.org/rtc-io/rtc-media) [![unstable](https://img.shields.io/badge/stability-unstable-yellowgreen.svg)](https://github.com/badges/stability-badges) [![Dependency Status](https://david-dm.org/rtc-io/rtc-media.svg)](https://david-dm.org/rtc-io/rtc-media) 
+[![Build Status](https://img.shields.io/travis/rtc-io/rtc-media.svg?branch=master)](https://travis-ci.org/rtc-io/rtc-media) [![unstable](https://img.shields.io/badge/stability-unstable-yellowgreen.svg)](https://github.com/dominictarr/stability#unstable) [![Dependency Status](https://david-dm.org/rtc-io/rtc-media.svg)](https://david-dm.org/rtc-io/rtc-media) 
 
 ## Example Usage
 
@@ -219,6 +219,27 @@ per stream.
 ### _handleSuccess(stream)
 
 Handle the success condition of a `getUserMedia` call.
+
+#### `clone(inputStream, opts?)` => MediaStream
+
+The `clone` helper function accepts an existing `MediaStream` and creates
+a new `MediaStream` with a cloned copy of each of the audio and video
+tracks contained within.
+
+This can be useful when you wish to mute (disable) either an audio or
+video stream sent over the wire, but keep the locally rendered stream
+active.
+
+ERROR: could not find: 
+
+An additional `opts` argument can be passed to this function to
+selectively filter which tracks are cloned:
+
+- `filterAudio` - a filter **function** that can be used to decide
+  whether an audio track is cloned into the new `MediaStream`.
+
+- `filterVideo` - as per the `filterAudio` option but for video
+  tracks.
 
 ## License(s)
 
