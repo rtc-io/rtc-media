@@ -230,7 +230,19 @@ This can be useful when you wish to mute (disable) either an audio or
 video stream sent over the wire, but keep the locally rendered stream
 active.
 
-ERROR: could not find: 
+```js
+var media = require('rtc-media');
+var clone = require('rtc-media/clone');
+
+media().on('capture', function(stream) {
+  // create a clone of the stream
+  var cloned = clone(stream);
+
+  // using the cloned stream, we will be able to enable and disable tracks without
+  // affecting the originally cloned stream
+});
+
+```
 
 An additional `opts` argument can be passed to this function to
 selectively filter which tracks are cloned:
