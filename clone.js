@@ -1,3 +1,6 @@
+var canClone = typeof MediaStreamTrack != 'undefined' &&
+  typeof MediaStreamTrack.prototype.clone == 'function';
+
 /**
 
   #### `clone(inputStream, opts?)` => MediaStream
@@ -25,7 +28,15 @@
 module.exports = function(input, opts) {
   var audioTrackFilter = (opts || {}).filterAudio || Boolean;
   var videoTrackFilter = (opts || {}).filterVideo || Boolean;
-  var tracks = []
+  var tracks = [];
+
+  // if we are unable to clone tracks, then return the original MediaStream
+  // it's not ideal, but probably better than erroring out
+  if (! canClone) {
+    return input;
+  }
+
+  tracks = []
     // clone the audio tracks
     .concat(input.getAudioTracks().filter(audioTrackFilter).map(cloneTrack))
     // clone the video tracks
