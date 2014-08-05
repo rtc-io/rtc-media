@@ -27,9 +27,9 @@ module.exports = function(input, opts) {
   var videoTrackFilter = (opts || {}).filterVideo || Boolean;
   var tracks = []
     // clone the audio tracks
-    .concat(input.getAudioTracks().filter(audioTrackFilter).map(cloneTrack)
+    .concat(input.getAudioTracks().filter(audioTrackFilter).map(cloneTrack))
     // clone the video tracks
-    .concat(input.getVideoTracks().filter(videoTrackFilter).map(cloneTrack);
+    .concat(input.getVideoTracks().filter(videoTrackFilter).map(cloneTrack));
 
   return new MediaStream(tracks);
 };
