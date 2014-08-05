@@ -595,3 +595,8 @@ Media.prototype._handleSuccess = function(stream) {
   // emit the stream event
   this.emit('stream', stream);
 };
+
+/**
+  ### Utility Functions
+
+**/

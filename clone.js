@@ -13,6 +13,11 @@ var canClone = typeof MediaStreamTrack != 'undefined' &&
   video stream sent over the wire, but keep the locally rendered stream
   active.
 
+  __NOTE:__ At this time it is not possible to clone a `MediaStreamTrack` in
+  firefox (https://bugzilla.mozilla.org/show_bug.cgi?id=910249).  When this
+  function is called in firefox, the original stream is returned rather than
+  throwing an error.
+
   <<< examples/clone.js
 
   An additional `opts` argument can be passed to this function to
