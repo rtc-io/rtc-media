@@ -78,6 +78,7 @@ var detect = require('rtc-core/detect');
 var plugin = require('rtc-core/plugin');
 var EventEmitter = require('eventemitter3');
 var inherits = require('inherits');
+var screenshare = require('./screenshare');
 
 // monkey patch getUserMedia from the prefixed version
 navigator.getUserMedia = navigator.getUserMedia ||
@@ -151,8 +152,7 @@ function Media(opts) {
   }
 
   // if we've been passed opts and they look like constraints, move things
-  // around a little
-  if (opts && (opts.audio || opts.video)) {
+  if (opts && (opts.audio || opts.video || opts.toConstraints)) {
     opts = {
       constraints: opts
     };
@@ -253,34 +253,41 @@ Media.prototype.capture = function(constraints, callback) {
     return callback && callback(new Error('Unable to capture user media'));
   }
 
-  // get user media, using either the provided constraints or the
-  // default constraints
-  debug('getUserMedia, constraints: ', constraints || this.constraints);
-  navigator.getUserMedia(
-    constraints || this.constraints,
-    function(stream) {
-      debug('sucessfully captured media stream: ', stream);
-      if (typeof stream.addEventListener == 'function') {
-        stream.addEventListener('ended', handleEnd);
-      }
-      else {
-        stream.onended = handleEnd;
-      }
-
-      // save the stream and emit the start method
-      media.stream = stream;
-
-      // emit capture on next tick which works around a bug when using plugins
-      setTimeout(function() {
-        media.emit('capture', stream);
-      }, 0);
-    },
-
-    function(err) {
-      debug('getUserMedia attempt failed: ', err);
-      media.emit('error', err);
+  // prepare constraints for capture
+  this._prepareConstraints(constraints || this.constraints, function(err, prepared) {
+    if (err) {
+      return media.emit('error', err);
     }
-  );
+
+    // get user media, using either the provided constraints or the
+    // default constraints
+    debug('getUserMedia, constraints: ', prepared);
+    navigator.getUserMedia(
+      prepared,
+      function(stream) {
+        debug('sucessfully captured media stream: ', stream);
+        if (typeof stream.addEventListener == 'function') {
+          stream.addEventListener('ended', handleEnd);
+        }
+        else {
+          stream.onended = handleEnd;
+        }
+
+        // save the stream and emit the start method
+        media.stream = stream;
+
+        // emit capture on next tick which works around a bug when using plugins
+        setTimeout(function() {
+          media.emit('capture', stream);
+        }, 0);
+      },
+
+      function(err) {
+        debug('getUserMedia attempt failed: ', err);
+        media.emit('error', err);
+      }
+    );
+  });
 };
 
 /**
@@ -400,6 +407,31 @@ Media.prototype._createBinding = function(opts, element) {
   });
 
   return element;
+};
+
+/**
+  ### `_prepareConstraints(constraints, callback)`
+
+  The `_prepareConstraints` function gives the media object an opportunity to
+  interface with the plugin to prepare constraints prior attempting media capture.
+
+  The internal default behaviour of the method also checks for whether screensharing
+  capture has been requested and if so, interacts with an extension to interact with
+  that process.
+
+**/
+Media.prototype._prepareConstraints = function(constraints, callback) {
+  var video = (constraints || {}).video;
+
+  // if implemented by the plugin, defer to the plugin
+  if (this.plugin && typeof this.plugin._prepareConstraints == 'function') {
+    return this.plugin._prepareConstraints(input, callback);
+  }
+
+  debugger;
+
+  // pass through to the screenshare call
+  screenshare(constraints, callback);
 };
 
 /**
