@@ -219,11 +219,7 @@ inherits(Media, EventEmitter);
 module.exports = Media;
 
 /**
-  ### capture
-
-  ```
-  capture(constraints, callback)
-  ```
+  #### `Media#capture(constraints?, callback?)`
 
   Capture media.  If constraints are provided, then they will
   override the default constraints that were used when the media object was
@@ -291,11 +287,7 @@ Media.prototype.capture = function(constraints, callback) {
 };
 
 /**
-  ### render
-
-  ```js
-  render(target, opts?, callback?)
-  ```
+  #### `Media#render(target, opts?, callback?) => HTMLElement`
 
   Render the captured media to the specified target element.  While previous
   versions of rtc-media accepted a selector string or an array of elements
@@ -356,7 +348,7 @@ Media.prototype.render = function(target, opts, callback) {
 };
 
 /**
-  ### stop()
+  #### `Media#stop()`
 
   Stop the media stream
 **/
@@ -379,7 +371,7 @@ Media.prototype.stop = function(opts) {
 };
 
 /**
-  ## Debugging Tips
+  ### Debugging Tips
 
   Chrome and Chromium can both be started with the following flag:
 
@@ -392,7 +384,7 @@ Media.prototype.stop = function(opts) {
   and also if you want to test connectivity between two browser instances and
   want to distinguish between the two local videos.
 
-  ## Internal Methods
+  ### Internal Methods
 
   There are a number of internal methods that are used in the `rtc-media`
   implementation. These are outlined below, but not expected to be of
@@ -410,7 +402,7 @@ Media.prototype._createBinding = function(opts, element) {
 };
 
 /**
-  ### `_prepareConstraints(constraints, callback)`
+  #### `Media#_prepareConstraints(constraints, callback)`
 
   The `_prepareConstraints` function gives the media object an opportunity to
   interface with the plugin to prepare constraints prior attempting media capture.
@@ -436,7 +428,7 @@ Media.prototype._prepareConstraints = function(constraints, callback) {
 };
 
 /**
-  ### _prepareElement(opts, element)
+  #### `Media#_prepareElement(opts, element)`
 
   The prepareElement function is used to prepare DOM elements that will
   receive the media streams once the stream have been successfully captured.
@@ -497,7 +489,7 @@ Media.prototype._prepareElement = function(opts, element) {
 };
 
 /**
-  ### _bindStream(stream)
+  #### `Media#_bindStream(stream)`
 
   Bind a stream to previously prepared DOM elements.
 
@@ -572,7 +564,7 @@ Media.prototype._bindStream = function(stream) {
 };
 
 /**
-  ### _unbind()
+  #### `Media#_unbind()`
 
   Gracefully detach elements that are using the stream from the
   current stream.
@@ -601,7 +593,7 @@ Media.prototype._unbind = function(opts) {
 };
 
 /**
-  ### _createObjectUrl(stream)
+  #### `Media#_createObjectUrl(stream)`
 
   This method is used to create an object url that can be attached to a video
   or audio element.  Object urls are cached to ensure only one is created
@@ -616,7 +608,7 @@ Media.prototype._createObjectURL = function(stream) {
 };
 
 /**
-  ### _handleSuccess(stream)
+  #### `Media#_handleSuccess(stream)`
 
   Handle the success condition of a `getUserMedia` call.
 
