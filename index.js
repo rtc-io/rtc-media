@@ -421,14 +421,15 @@ Media.prototype._createBinding = function(opts, element) {
 
 **/
 Media.prototype._prepareConstraints = function(constraints, callback) {
-  var video = (constraints || {}).video;
+  // if the constraints can be unpacked, then do that now
+  if (constraints && typeof constraints.toConstraints == 'function') {
+    constraints = constraints.toConstraints();
+  }
 
   // if implemented by the plugin, defer to the plugin
   if (this.plugin && typeof this.plugin._prepareConstraints == 'function') {
-    return this.plugin._prepareConstraints(input, callback);
+    return this.plugin._prepareConstraints(constraints, callback);
   }
-
-  debugger;
 
   // pass through to the screenshare call
   screenshare(constraints, callback);
