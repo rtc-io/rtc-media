@@ -196,6 +196,15 @@ There are a number of internal methods that are used in the `rtc-media`
 implementation. These are outlined below, but not expected to be of
 general use.
 
+### `_prepareConstraints(constraints, callback)`
+
+The `_prepareConstraints` function gives the media object an opportunity to
+interface with the plugin to prepare constraints prior attempting media capture.
+
+The internal default behaviour of the method also checks for whether screensharing
+capture has been requested and if so, interacts with an extension to interact with
+that process.
+
 ### _prepareElement(opts, element)
 
 The prepareElement function is used to prepare DOM elements that will
