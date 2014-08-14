@@ -6,10 +6,14 @@ env:
   matrix:
     - BROWSER=chrome  BVER=stable
     - BROWSER=chrome  BVER=beta
-    - BROWSER=chrome  BVER=unstable
     - BROWSER=firefox BVER=stable
     - BROWSER=firefox BVER=beta
-    - BROWSER=firefox BVER=nightly
+
+    allowed_failures:
+      - BROWSER=chrome  BVER=unstable
+      - BROWSER=firefox BVER=nightly
+
+    fast_finish: true
 
 before_install:
   - mkdir -p .travis
