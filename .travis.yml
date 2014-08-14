@@ -4,17 +4,19 @@ node_js:
 
 env:
   matrix:
-    include:
-      - BROWSER=chrome  BVER=stable
-      - BROWSER=chrome  BVER=beta
-      - BROWSER=firefox BVER=stable
-      - BROWSER=firefox BVER=beta
+  - BROWSER=chrome  BVER=stable
+  - BROWSER=chrome  BVER=beta
+  - BROWSER=chrome  BVER=unstable
+  - BROWSER=firefox BVER=stable
+  - BROWSER=firefox BVER=beta
+  - BROWSER=firefox BVER=nightly
 
-    allowed_failures:
-      - BROWSER=chrome  BVER=unstable
-      - BROWSER=firefox BVER=nightly
+matrix:
+  fast_finish: true
 
-    fast_finish: true
+  allowed_failures:
+    - env: BROWSER=chrome  BVER=unstable
+    - env: BROWSER=firefox BVER=nightly
 
 before_install:
   - mkdir -p .travis
