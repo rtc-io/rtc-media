@@ -4,10 +4,11 @@ node_js:
 
 env:
   matrix:
-    - BROWSER=chrome  BVER=stable
-    - BROWSER=chrome  BVER=beta
-    - BROWSER=firefox BVER=stable
-    - BROWSER=firefox BVER=beta
+    include:
+      - BROWSER=chrome  BVER=stable
+      - BROWSER=chrome  BVER=beta
+      - BROWSER=firefox BVER=stable
+      - BROWSER=firefox BVER=beta
 
     allowed_failures:
       - BROWSER=chrome  BVER=unstable
