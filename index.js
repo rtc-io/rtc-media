@@ -81,7 +81,8 @@ var inherits = require('inherits');
 
 // monkey patch getUserMedia from the prefixed version
 navigator.getUserMedia = navigator.getUserMedia ||
-  detect.call(navigator, 'getUserMedia');
+  detect.call(navigator, 'getUserMedia') ||
+  require('./not-supported');
 
 // patch window url
 window.URL = window.URL || detect('URL');
