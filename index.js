@@ -197,6 +197,8 @@ function Media(opts) {
   // see if we are using a plugin
   this.plugin = plugin((opts || {}).plugins);
   if (this.plugin) {
+    media._pluginReady = false;
+
     // if we are using a plugin, give it an opportunity to patch the
     // media capture interface
     media._pinst = this.plugin.init(opts, function(err) {
@@ -205,7 +207,11 @@ function Media(opts) {
         return media.emit('error', err);
       }
 
-      if ((! opts.stream) && opts.capture) {
+      media._pluginReady = true;
+      if (media._queuedCapture) {
+        return media.emit('plugin:ready');
+      }
+      else if ((! opts.stream) && opts.capture) {
         media.capture();
       }
     });
@@ -242,6 +248,19 @@ Media.prototype.capture = function(constraints, callback) {
   if (typeof constraints == 'function') {
     callback = constraints;
     constraints = this.constraints;
+  }
+
+  // if we already have a capture request queued, then do nothing
+  if (this._queuedCapture) {
+    return;
+  }
+
+  // if we have a plugin instance, and it's not ready then we need to wait
+  if (this._pinst && (! this._pluginReady)) {
+    this._queuedCapture = true;
+    return this.once('plugin:ready', function() {
+      media.capture(constraints, callback);
+    });
   }
 
   // if we have a callback, bind to the start event
@@ -282,6 +301,9 @@ Media.prototype.capture = function(constraints, callback) {
       media.emit('error', err);
     }
   );
+
+  // undef the queued capture flag
+  this._queuedCapture = false;
 };
 
 /**
