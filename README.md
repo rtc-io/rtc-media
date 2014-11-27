@@ -15,7 +15,7 @@ within an application.
 
 ## Example Usage
 
-Default constraints (`{ audio: true, video: true }`) capture and rendering
+Default constraints `{ audio: true, video: true }` capture and rendering
 an new video element within the document.body:
 
 ```js

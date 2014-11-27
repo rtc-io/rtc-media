@@ -11,7 +11,7 @@ var attach = require('rtc-attach');
 
   ## Example Usage
 
-  Default constraints (`{ audio: true, video: true }`) capture and rendering
+  Default constraints `{ audio: true, video: true }` capture and rendering
   an new video element within the document.body:
 
   <<< examples/render-to-body.js
