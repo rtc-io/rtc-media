@@ -7,7 +7,7 @@
     "cog": "^1.0.0",
     "eventemitter3": "^0.1.2",
     "inherits": "^2.0.1",
-    "rtc-core": "^3.0.0"
+    "rtc-core": "^4.0.0"
   },
   "scripts": {
     "test": "testling -x ./.travis/start-$BROWSER.sh",
