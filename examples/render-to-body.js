@@ -1,5 +1,3 @@
-// require the media capture helper from rtc.io
-var media = require('..');
-
-// capture video and render it to the document body
-media().render(document.body);
+// capture using default constraints and render a new video element
+// in the document body
+require('..')({ target: document.body });
