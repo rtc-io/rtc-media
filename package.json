@@ -7,6 +7,8 @@
     "cog": "^1.0.0",
     "eventemitter3": "^0.1.2",
     "inherits": "^2.0.1",
+    "rtc-attach": "^1.3.2",
+    "rtc-capture": "^1.0.2",
     "rtc-core": "^4.0.0"
   },
   "scripts": {
