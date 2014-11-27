@@ -8,21 +8,10 @@
     "rtc-capture": "^1.0.2"
   },
   "scripts": {
-    "test": "testling -x ./.travis/start-$BROWSER.sh",
-    "lint": "jshint *.js",
     "gendocs": "gendocs > README.md"
   },
   "devDependencies": {
-    "crel": "^2.1.5",
-    "tape": "^2",
-    "testling": "^1"
-  },
-  "testling": {
-    "files": "test/all.js",
-    "browsers": [
-      "chrome/25..canary",
-      "firefox/nightly"
-    ]
+    "crel": "^2.1.5"
   },
   "main": "index.js",
   "directories": {
