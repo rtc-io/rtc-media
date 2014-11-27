@@ -1,9 +1,8 @@
 {
   "badges": {
     "nodeico": true,
-    "travis": true,
-    "stability": "unstable",
-    "david": true
+    "stability": true,
+    "group": "rtc.io"
   },
 
   "license": {

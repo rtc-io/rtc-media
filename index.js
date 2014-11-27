@@ -1,6 +1,23 @@
 var capture = require('rtc-capture');
 var attach = require('rtc-attach');
 
+/**
+  # rtc-media
+
+  This is a convenience function for invoking media capture and rendering
+  using the [`rtc-capture`](https://github.com/rtc-io/rtc-capture) and
+  [`rtc-attach`](https://github.com/rtc-io/rtc-attach) packages respectively
+  within an application.
+
+  ## Example Usage
+
+  Default constraints (`{ audio: true, video: true }`) capture and rendering
+  an new video element within the document.body:
+
+  <<< examples/render-to-body.js
+
+**/
+
 module.exports = function(opts) {
   // do we have constraints
   var constraints = (opts || {}).constraints || { video: true, audio: true };
