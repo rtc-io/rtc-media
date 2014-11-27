@@ -17,6 +17,7 @@
     "gendocs": "gendocs > README.md"
   },
   "devDependencies": {
+    "crel": "^2.1.5",
     "tape": "^2",
     "testling": "^1"
   },
