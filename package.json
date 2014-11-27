@@ -3,6 +3,7 @@
   "description": "A simple getUserMedia wrapper",
   "author": "Damon Oehlman <damon.oehlman@nicta.com.au>",
   "version": "1.10.1",
+  "stability": "unstable",
   "dependencies": {
     "rtc-attach": "^1.3.2",
     "rtc-capture": "^1.0.2"
