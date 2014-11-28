@@ -5,6 +5,7 @@
   "version": "1.10.1",
   "stability": "unstable",
   "dependencies": {
+    "cog": "^1.0.0",
     "rtc-attach": "^2.0.0",
     "rtc-capture": "^1.0.2"
   },
