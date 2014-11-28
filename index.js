@@ -1,5 +1,6 @@
 var capture = require('rtc-capture');
 var attach = require('rtc-attach');
+var extend = require('cog/extend');
 
 /**
   # rtc-media
@@ -18,7 +19,7 @@ var attach = require('rtc-attach');
 
 **/
 
-module.exports = function(opts) {
+var media = module.exports = function(opts) {
   // do we have constraints
   var constraints = (opts || {}).constraints || { video: true, audio: true };
 
@@ -51,4 +52,12 @@ module.exports = function(opts) {
   return capture(constraints, opts, function(err, stream) {
     streamAttach(stream, opts, handleAttach);
   });
+};
+
+media.capture = function(constraints, opts) {
+  return media(extend({}, opts, { constraints: constraints }));
+};
+
+media.attach = media.render = function(stream, opts) {
+  return media(extend({}, opts, { stream: stream });
 };
