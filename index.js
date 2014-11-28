@@ -31,13 +31,14 @@ module.exports = function(opts) {
 
   // detect a target
   var target = (opts || {}).target || document.body;
+  var nonMediaTarget = !(target instanceof HTMLMediaElement);
 
   function handleAttach(err, el) {
     if (err) {
       return;
     }
 
-    if (target && target !== el) {
+    if (target && nonMediaTarget && target !== el) {
       target.appendChild(el);
     }
   }
