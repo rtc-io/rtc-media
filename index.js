@@ -59,5 +59,5 @@ media.capture = function(constraints, opts) {
 };
 
 media.attach = media.render = function(stream, opts) {
-  return media(extend({}, opts, { stream: stream });
+  return media(extend({}, opts, { stream: stream }));
 };
