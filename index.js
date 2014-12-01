@@ -17,6 +17,12 @@ var extend = require('cog/extend');
 
   <<< examples/render-to-body.js
 
+  In the event that you wish to make use of any of the rtc.io plugins, then
+  the following example demonstrates how to provide a single "capture and
+  render" call that will work with a plugin:
+
+  <<< examples/plugin.js
+
 **/
 
 var media = module.exports = function(opts) {

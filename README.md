@@ -25,6 +25,29 @@ require('rtc-media')({ target: document.body });
 
 ```
 
+In the event that you wish to make use of any of the rtc.io plugins, then
+the following example demonstrates how to provide a single "capture and
+render" call that will work with a plugin:
+
+```js
+var crel = require('crel');
+
+// ensure we have a style tag that tells the video renderer what size it should be
+document.body.appendChild(crel('style', [
+  'body { margin: 0px; width: 100vw; height: 100vh; overflow: hidden }',
+  'body > * { width: 100%; height: 100%; object-fit: contain }'
+].join('\n')));
+
+// specify a plugin
+require('rtc-media')({
+  target: document.body,
+  plugins: [
+    require('rtc-plugin-nicta-ios')
+  ]
+});
+
+```
+
 ## License(s)
 
 ### Apache 2.0
