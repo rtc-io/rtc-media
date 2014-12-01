@@ -34,7 +34,7 @@ var media = module.exports = function(opts) {
 
   // if we have been passed constraints, assume we are attaching a local stream
   // otherwise, use the generic attach options
-  var streamAttach = constraints ? attach.local : attach;
+  var streamAttach = (opts || {}).constraints ? attach.local : attach;
 
   // detect a target
   var target = (opts || {}).target || document.body;
